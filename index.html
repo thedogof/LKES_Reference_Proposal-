@@ -1,0 +1,490 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>龍科國小校舍規劃｜全球案例 × 在地化戰略 Web App</title>
+  <style>
+    :root {
+      --bg: #f3f7fb;
+      --card: #ffffff;
+      --text: #1f2937;
+      --muted: #4b5563;
+      --brand: #0f766e;
+      --brand-2: #2563eb;
+      --line: #dbe3ef;
+      --ok: #166534;
+      --warn: #9a3412;
+      --radius: 16px;
+      --shadow: 0 10px 30px rgba(15, 23, 42, .08);
+    }
+
+    * { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; font-family: "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", system-ui, sans-serif; background: var(--bg); color: var(--text); }
+    a { color: inherit; }
+
+    .hero {
+      background: linear-gradient(135deg, #0f766e, #2563eb);
+      color: #fff;
+      padding: 48px 24px 36px;
+    }
+
+    .hero-wrap, .main-wrap { max-width: 1180px; margin: 0 auto; }
+    .hero h1 { margin: 0 0 12px; font-size: clamp(1.6rem, 2.8vw, 2.5rem); line-height: 1.28; }
+    .hero p { margin: 0; line-height: 1.8; max-width: 900px; opacity: .96; }
+
+    .kpis {
+      margin-top: 20px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(165px, 1fr));
+      gap: 12px;
+    }
+
+    .kpi {
+      background: rgba(255,255,255,.15);
+      border: 1px solid rgba(255,255,255,.25);
+      border-radius: 12px;
+      padding: 12px;
+      backdrop-filter: blur(4px);
+    }
+
+    .kpi b { display: block; font-size: 1.2rem; margin-bottom: 4px; }
+
+    .main-wrap {
+      display: grid;
+      grid-template-columns: 260px 1fr;
+      gap: 18px;
+      padding: 24px;
+      align-items: start;
+    }
+
+    .side {
+      position: sticky;
+      top: 12px;
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 14px;
+    }
+
+    .side h2 { font-size: 1rem; margin: 4px 0 10px; color: var(--brand); }
+    .side a {
+      display: block;
+      text-decoration: none;
+      color: var(--muted);
+      padding: 8px 10px;
+      border-radius: 10px;
+      margin-bottom: 6px;
+      transition: .2s;
+      border: 1px solid transparent;
+    }
+    .side a:hover { background: #eef6ff; color: var(--brand-2); border-color: #c9dcff; }
+
+    .section {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      margin-bottom: 18px;
+      overflow: hidden;
+    }
+
+    .section > header {
+      padding: 18px 20px;
+      border-bottom: 1px solid var(--line);
+      background: #fafcff;
+    }
+
+    .section h2, .section h3 { margin: 0; }
+    .section h2 { font-size: 1.22rem; }
+    .section .content { padding: 18px 20px 20px; }
+
+    .pillars {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 12px;
+      margin-top: 10px;
+    }
+
+    .card {
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 14px;
+      background: #fff;
+    }
+
+    .card h4 { margin: 0 0 8px; color: var(--brand); }
+    .card p, li { color: var(--muted); line-height: 1.75; }
+
+    .tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 14px;
+    }
+
+    .tab {
+      border: 1px solid #cddcf5;
+      background: #f6faff;
+      color: #1e3a8a;
+      border-radius: 999px;
+      padding: 6px 12px;
+      cursor: pointer;
+      font-size: .92rem;
+    }
+
+    .tab.active { background: #1d4ed8; color: #fff; border-color: #1d4ed8; }
+    .case-panel { display: none; }
+    .case-panel.active { display: block; }
+
+    .case-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 12px;
+    }
+
+    .tag {
+      display: inline-block;
+      border: 1px solid #b8d6ff;
+      color: #1d4ed8;
+      background: #eef5ff;
+      border-radius: 999px;
+      padding: 2px 10px;
+      font-size: .82rem;
+      margin-right: 6px;
+      margin-bottom: 6px;
+    }
+
+    .table-wrap { overflow-x: auto; }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 760px;
+      font-size: .95rem;
+    }
+
+    th, td {
+      border: 1px solid var(--line);
+      padding: 10px;
+      vertical-align: top;
+      line-height: 1.6;
+    }
+
+    th { background: #f8fbff; text-align: left; color: #0f172a; }
+
+    .highlight {
+      border-left: 4px solid var(--brand);
+      background: #f0fdfa;
+      padding: 12px;
+      border-radius: 10px;
+      color: #115e59;
+      margin: 12px 0;
+      line-height: 1.75;
+    }
+
+    footer {
+      text-align: center;
+      padding: 22px;
+      color: var(--muted);
+      font-size: .92rem;
+    }
+
+    @media (max-width: 980px) {
+      .main-wrap { grid-template-columns: 1fr; }
+      .side { position: static; }
+    }
+  </style>
+</head>
+<body>
+  <section class="hero">
+    <div class="hero-wrap">
+      <h1>龍科國小校舍規劃策略平台</h1>
+      <p>
+        整合「全球八大指標校園案例」與「龍潭在地化社經分析」，將抽象政策、教育願景、建築語彙與空間機能，
+        轉譯為可執行的建校參考框架，支援 114 學年度啟動後的中長期校舍規劃。
+      </p>
+      <div class="kpis">
+        <div class="kpi"><b>8</b>全球典範案例</div>
+        <div class="kpi"><b>4</b>核心空間主軸</div>
+        <div class="kpi"><b>3,600+</b>預估科技就業導入</div>
+        <div class="kpi"><b>114</b>學年度設校節點</div>
+      </div>
+    </div>
+  </section>
+
+  <main class="main-wrap">
+    <nav class="side" aria-label="章節導航">
+      <h2>快速導覽</h2>
+      <a href="#overview">專案摘要</a>
+      <a href="#global">八大國際案例</a>
+      <a href="#local">在地化研究重點</a>
+      <a href="#strategy">空間與教學策略</a>
+      <a href="#roadmap">建設路線圖</a>
+      <a href="#matrix">整合對照矩陣</a>
+    </nav>
+
+    <div>
+      <section class="section" id="overview">
+        <header><h2>專案摘要：從教育願景到可執行空間</h2></header>
+        <div class="content">
+          <p>
+            本頁面聚焦龍科國小三大任務：<b>雙語亮點學校</b>、<b>智慧科技教育基地</b>、<b>社區縫合樞紐</b>。
+            核心方法為「案例拆解 → 在地轉譯 → 空間配置 → 分期落地」，協助決策單位快速對齊。
+          </p>
+          <div class="pillars">
+            <article class="card">
+              <h4>教育定位</h4>
+              <p>建立 Community Hub 型校園，讓行政、外師、學生與社區在同一知識場域交會。</p>
+            </article>
+            <article class="card">
+              <h4>建築定位</h4>
+              <p>融合客家地景與科技語彙，發展「文化可讀、科技可見、永續可學」的校舍語言。</p>
+            </article>
+            <article class="card">
+              <h4>社會定位</h4>
+              <p>回應龍科三期擴建後的人口重組與在地情感，讓新校成為社區共識重建平台。</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="global">
+        <header><h2>全球八大指標校園：重點轉譯面板</h2></header>
+        <div class="content">
+          <div class="tabs" id="tabs"></div>
+          <article class="case-panel active" data-case="0"></article>
+          <article class="case-panel" data-case="1"></article>
+          <article class="case-panel" data-case="2"></article>
+          <article class="case-panel" data-case="3"></article>
+          <article class="case-panel" data-case="4"></article>
+          <article class="case-panel" data-case="5"></article>
+          <article class="case-panel" data-case="6"></article>
+          <article class="case-panel" data-case="7"></article>
+        </div>
+      </section>
+
+      <section class="section" id="local">
+        <header><h2>在地化報告重點：龍潭科學園區與校園發展耦合</h2></header>
+        <div class="content">
+          <div class="highlight">
+            龍科國小不是單一教育建案，而是「科技產業升級 × 地方社會重構 × 新教育模型」的交會節點。
+            校舍規劃需同時滿足科技家庭期待、安置戶情感修復與地方共榮。
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>觀察面向</th>
+                  <th>轉型前</th>
+                  <th>轉型後</th>
+                  <th>校園設計回應</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>產業結構</td>
+                  <td>農業與地方微型商業</td>
+                  <td>半導體、淨零科技、航太產業鏈</td>
+                  <td>增設 STEM/AI 實驗場域與產學介面，建立科技素養路徑。</td>
+                </tr>
+                <tr>
+                  <td>人口與家長期待</td>
+                  <td>在地聚落、人口老化</td>
+                  <td>高學歷科技家庭移入、社經背景異質化</td>
+                  <td>兼顧雙語國際課程與在地文化課程，打造高彈性教學空間。</td>
+                </tr>
+                <tr>
+                  <td>土地與空間</td>
+                  <td>農地、聚落與家族場域</td>
+                  <td>園區廠房、新興住宅、安置社區</td>
+                  <td>導入綠帶緩衝、開放共享廣場、社區動線融合設計。</td>
+                </tr>
+                <tr>
+                  <td>社會心理</td>
+                  <td>在地穩定生活記憶</td>
+                  <td>徵收創傷與發展期待並存</td>
+                  <td>建置記憶廊道/村史展示，將校園作為社會縫合器。</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="strategy">
+        <header><h2>四大空間策略主軸（可直接納入規劃書）</h2></header>
+        <div class="content">
+          <div class="pillars">
+            <article class="card">
+              <h4>1) 雙語沉浸 Hub</h4>
+              <p>以開放式 Community Hub 串聯外師、行政與學生活動，將走廊、轉角、階梯都變成語言互動節點。</p>
+            </article>
+            <article class="card">
+              <h4>2) 結構教材化</h4>
+              <p>參考 CLT 與可視化機電策略，讓結構、設備、能源系統成為跨學科教學素材。</p>
+            </article>
+            <article class="card">
+              <h4>3) 高機動學習空間</h4>
+              <p>採固定基座＋模組家具，讓教室可快速轉換為劇場、辯論場、創客空間與觀議課場地。</p>
+            </article>
+            <article class="card">
+              <h4>4) 人車分流與社區共融</h4>
+              <p>以立體化動線（地下接送或屋頂平台）降低衝突，並透過口袋公園與共享場館強化社區關係。</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="roadmap">
+        <header><h2>建設路線圖（建議分期）</h2></header>
+        <div class="content">
+          <div class="case-grid">
+            <article class="card">
+              <h4>Phase A｜設校啟動（0–12 個月）</h4>
+              <ul>
+                <li>完成總體配置與交通微模擬。</li>
+                <li>確認雙語直播棚、協同備課區與多功能中心規格。</li>
+                <li>導入社區溝通機制與記憶保存計畫。</li>
+              </ul>
+            </article>
+            <article class="card">
+              <h4>Phase B｜主體工程（12–30 個月）</h4>
+              <ul>
+                <li>完成教學棟、創客實驗室與綠帶系統。</li>
+                <li>佈建高頻寬網路、智慧門禁與能源可視化系統。</li>
+                <li>建立可獨立開放的社區共享動線。</li>
+              </ul>
+            </article>
+            <article class="card">
+              <h4>Phase C｜運營優化（30 個月後）</h4>
+              <ul>
+                <li>根據招生與學習成效滾動調整空間。</li>
+                <li>擴大國際觀議課與城市級教育合作。</li>
+                <li>持續深化地方文化展示與生態教育路徑。</li>
+              </ul>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="matrix">
+        <header><h2>全球案例 × 龍科轉譯 對照矩陣</h2></header>
+        <div class="content">
+          <span class="tag">希望之丘：地景化閱讀</span>
+          <span class="tag">Amanenomori：安全與循環動線</span>
+          <span class="tag">昭和學院：結構教材化</span>
+          <span class="tag">YIS：Hub 型學習網絡</span>
+          <span class="tag">光武：人車分流與社區共享</span>
+          <span class="tag">陽光：家具定義空間</span>
+          <span class="tag">關埔：微地形與自然教育</span>
+          <span class="tag">巢鴨北：高密度垂直校園</span>
+          <p>
+            建議在規劃報告附錄中，將每個案例對應到「場域原型 + 成本等級 + 工程可行性 + 教學成效指標」，
+            形成可評估、可招標、可驗收的決策儀表板。
+          </p>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <footer>
+    龍科國小規劃參考平台｜教育、建築、社會三軸整合版
+  </footer>
+
+  <script>
+    const caseData = [
+      {
+        title: "專案一｜大阪希望之丘中小學（KKAA）",
+        tags: ["碎片化量體", "階梯閱讀坡", "地景延伸"],
+        concept: "以『消去建築』降低量體壓迫，讓學校像丘陵中的村落。",
+        highlights: ["大型階梯閱讀區取代傳統圖書館", "走廊與轉角布置去中心化書架", "木質與大面開窗模糊室內外界線"],
+        translation: "可於雙語推動辦公室周邊設置階梯閱讀坡，結合英語展示、簡報與小型展演。"
+      },
+      {
+        title: "專案二｜Amanenomori 幼兒園（Aisaka Architects）",
+        tags: ["環狀動線", "食育可視化", "能源教育"],
+        concept: "以 O 型結構與 3D 循環遊戲動線提供安全、探索與學習整合。",
+        highlights: ["坡道、橋梁、滑梯一體化", "低地坪玻璃廚房強化食育視角", "地熱管、雨水回收、太陽能可視化"],
+        translation: "低年級與附幼區域導入圓角安全設計，搭配開放行政監看提升透明治理。"
+      },
+      {
+        title: "專案三｜昭和學院附屬小學西樓（日建設計）",
+        tags: ["CLT木構", "碳中和", "建築即教材"],
+        concept: "以國產木材與可視化結構設備，讓永續成為可閱讀的校園日常。",
+        highlights: ["雙向無梁板提高淨高與視野", "可全開教室連接中央活動廣場", "導入 AI 攝影與平板 1:1 教學"],
+        translation: "在龍科導入溫潤木質學習環境，平衡高科技設備帶來的冷感。"
+      },
+      {
+        title: "專案四｜橫濱國際學校 YIS（KKAA）",
+        tags: ["Wooden House", "Every Space Learning", "Community Hub"],
+        concept: "把走廊變成學習空間，把行政區變成交流場域。",
+        highlights: ["Lily Pads 圓形木平台支援多元學習", "可寫式家具鼓勵即時創作", "文化空間平衡國際化與在地美學"],
+        translation: "龍科可建立雙語交流 Hub，縮短外師、行政與學生互動距離。"
+      },
+      {
+        title: "專案五｜高雄光武國小多功能體操館",
+        tags: ["識別意象", "社區共享", "智慧場館"],
+        concept: "以體操專長轉化建築識別，並透過分層動線兼顧校安與社區使用。",
+        highlights: ["地下停車與校園動線分離", "ICT 停車導引提升營運效率", "挑高空間支援賽事與多功能活動"],
+        translation: "龍科可導入避雨接送帶與園區共享空間，緩解尖峰交通壓力。"
+      },
+      {
+        title: "專案六｜新竹陽光國小（田中央）",
+        tags: ["物件定義空間", "模組家具", "幾何學習"],
+        concept: "透過可移動家具，讓課程需求直接重塑空間。",
+        highlights: ["固定基座＋移動家具", "尺寸遵循數學倍數關係", "走廊節點轉為學習據點"],
+        translation: "可快速切換雙語劇場、討論、研習等情境，支援高頻課程轉換。"
+      },
+      {
+        title: "專案七｜新竹關埔國小（田中央）",
+        tags: ["微地形", "去跑道策略", "風環境設計"],
+        concept: "打破標準化校園，讓自然地景與移動成為學習本身。",
+        highlights: ["教室單元如樹冠散布", "草地與起伏廊道取代制式跑道", "通風塔改善強風環境"],
+        translation: "以地坪高差區分動靜區，減少圍牆感並引導自然英語情境學習。"
+      },
+      {
+        title: "專案八｜東京巢鴨北中學（Coelacanth K&H）",
+        tags: ["高密度垂直", "屋頂機能", "社交核心梯"],
+        concept: "在有限基地上，透過垂直堆疊與社交中樞釋放公共性。",
+        highlights: ["泳池與操場上移至屋頂", "X 型核心梯兼具社交與動線", "兩層挑空 LIC 成知識心臟"],
+        translation: "若未來需高容積擴建，可採垂直社交與空中地景策略。"
+      }
+    ];
+
+    const tabs = document.getElementById('tabs');
+    const panels = [...document.querySelectorAll('.case-panel')];
+
+    caseData.forEach((c, i) => {
+      const btn = document.createElement('button');
+      btn.className = `tab ${i === 0 ? 'active' : ''}`;
+      btn.textContent = `案例 ${i + 1}`;
+      btn.addEventListener('click', () => activate(i));
+      tabs.appendChild(btn);
+
+      panels[i].innerHTML = `
+        <div class="case-grid">
+          <article class="card">
+            <h3>${c.title}</h3>
+            ${c.tags.map(t => `<span class='tag'>${t}</span>`).join('')}
+            <p><b>設計理念：</b>${c.concept}</p>
+          </article>
+          <article class="card">
+            <h4>空間亮點</h4>
+            <ul>${c.highlights.map(h => `<li>${h}</li>`).join('')}</ul>
+          </article>
+          <article class="card">
+            <h4>對龍科國小的轉譯</h4>
+            <p>${c.translation}</p>
+          </article>
+        </div>
+      `;
+    });
+
+    function activate(i) {
+      document.querySelectorAll('.tab').forEach((el, idx) => el.classList.toggle('active', idx === i));
+      panels.forEach((p, idx) => p.classList.toggle('active', idx === i));
+    }
+  </script>
+</body>
+</html>
