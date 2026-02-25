@@ -3,254 +3,134 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>龍科國小校舍規劃｜全球案例 × 在地化戰略 Web App</title>
+  <title>龍科國小校舍規劃｜沉浸式策略儀表板</title>
   <style>
     :root {
-      --bg: #f3f7fb;
-      --card: #ffffff;
-      --text: #1f2937;
-      --muted: #4b5563;
-      --brand: #0f766e;
-      --brand-2: #2563eb;
-      --line: #dbe3ef;
-      --ok: #166534;
-      --warn: #9a3412;
-      --radius: 16px;
-      --shadow: 0 10px 30px rgba(15, 23, 42, .08);
+      --bg:#eef3f9;
+      --panel:#ffffff;
+      --ink:#0f172a;
+      --muted:#475569;
+      --line:#d7e2f0;
+      --brand:#0f766e;
+      --brand2:#2563eb;
+      --accent:#7c3aed;
+      --ok:#166534;
+      --warn:#b45309;
+      --shadow: 0 18px 40px rgba(15, 23, 42, .08);
+      --radius:18px;
     }
+    *{box-sizing:border-box}
+    html,body{margin:0;padding:0;font-family:"Noto Sans TC","PingFang TC","Microsoft JhengHei",system-ui,sans-serif;color:var(--ink);background:radial-gradient(circle at 10% -30%,#d9f6f3,transparent 40%),radial-gradient(circle at 90% -20%,#dce8ff,transparent 40%),var(--bg);scroll-behavior:smooth}
+    .hero{position:relative;overflow:hidden;padding:58px 24px 44px;background:linear-gradient(120deg,#0f766e,#1d4ed8 58%,#4f46e5);color:#fff}
+    .hero::before,.hero::after{content:"";position:absolute;border-radius:50%;filter:blur(24px);opacity:.18;pointer-events:none}
+    .hero::before{width:300px;height:300px;background:#fff;right:-80px;top:-120px;animation:float 7s ease-in-out infinite}
+    .hero::after{width:220px;height:220px;background:#9ae6ff;left:-70px;bottom:-110px;animation:float 9s ease-in-out infinite reverse}
+    @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(16px)}}
 
-    * { box-sizing: border-box; }
-    html, body { margin: 0; padding: 0; font-family: "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", system-ui, sans-serif; background: var(--bg); color: var(--text); }
-    a { color: inherit; }
+    .wrap{max-width:1220px;margin:0 auto}
+    h1{margin:0 0 10px;font-size:clamp(1.8rem,3.2vw,2.7rem);line-height:1.2}
+    .hero p{max-width:920px;line-height:1.8;margin:0;color:#eef6ff}
 
-    .hero {
-      background: linear-gradient(135deg, #0f766e, #2563eb);
-      color: #fff;
-      padding: 48px 24px 36px;
-    }
+    .kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:10px;margin-top:20px}
+    .kpi{padding:13px 14px;border:1px solid rgba(255,255,255,.3);border-radius:12px;background:rgba(255,255,255,.12);backdrop-filter:blur(4px);transform:translateY(10px);opacity:0;animation:rise .8s forwards}
+    .kpi:nth-child(2){animation-delay:.12s}.kpi:nth-child(3){animation-delay:.24s}.kpi:nth-child(4){animation-delay:.36s}
+    @keyframes rise{to{transform:none;opacity:1}}
+    .kpi b{display:block;font-size:1.2rem;margin-bottom:5px}
 
-    .hero-wrap, .main-wrap { max-width: 1180px; margin: 0 auto; }
-    .hero h1 { margin: 0 0 12px; font-size: clamp(1.6rem, 2.8vw, 2.5rem); line-height: 1.28; }
-    .hero p { margin: 0; line-height: 1.8; max-width: 900px; opacity: .96; }
+    .layout{display:grid;grid-template-columns:280px 1fr;gap:18px;padding:24px}
+    .glass{background:rgba(255,255,255,.82);border:1px solid var(--line);box-shadow:var(--shadow);backdrop-filter:blur(6px);border-radius:var(--radius)}
 
-    .kpis {
-      margin-top: 20px;
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(165px, 1fr));
-      gap: 12px;
-    }
+    .side{position:sticky;top:12px;padding:14px}
+    .side h3{margin:4px 0 10px;color:var(--brand)}
+    .side a{display:block;text-decoration:none;color:var(--muted);padding:9px 10px;border-radius:10px;margin-bottom:6px;transition:.2s;border:1px solid transparent}
+    .side a:hover{background:#eff7ff;border-color:#c5daf8;color:var(--brand2);transform:translateX(2px)}
 
-    .kpi {
-      background: rgba(255,255,255,.15);
-      border: 1px solid rgba(255,255,255,.25);
-      border-radius: 12px;
-      padding: 12px;
-      backdrop-filter: blur(4px);
-    }
+    .section{margin-bottom:16px;overflow:hidden}
+    .section header{padding:16px 18px;border-bottom:1px solid var(--line);background:#f9fcff}
+    .section header h2{margin:0;font-size:1.18rem}
+    .content{padding:16px 18px}
 
-    .kpi b { display: block; font-size: 1.2rem; margin-bottom: 4px; }
+    .grid{display:grid;gap:12px}
+    .g3{grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
+    .g2{grid-template-columns:repeat(auto-fit,minmax(320px,1fr))}
+    .card{border:1px solid var(--line);border-radius:12px;padding:12px;background:#fff}
+    .card h4{margin:0 0 8px;color:var(--brand)}
+    p,li{line-height:1.75;color:var(--muted)}
 
-    .main-wrap {
-      display: grid;
-      grid-template-columns: 260px 1fr;
-      gap: 18px;
-      padding: 24px;
-      align-items: start;
-    }
+    .tabs{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px}
+    .tab{border:1px solid #bcd4f7;background:#f4f8ff;color:#1d4ed8;border-radius:999px;padding:6px 11px;cursor:pointer;transition:.2s}
+    .tab.active,.tab:hover{background:#1d4ed8;color:#fff}
+    .case-panel{display:none}.case-panel.active{display:block;animation:fade .25s ease}
+    @keyframes fade{from{opacity:.3;transform:translateY(4px)}to{opacity:1;transform:none}}
 
-    .side {
-      position: sticky;
-      top: 12px;
-      background: var(--card);
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      padding: 14px;
-    }
+    .tag{display:inline-block;background:#eef5ff;color:#1d4ed8;border:1px solid #c3dafd;border-radius:999px;padding:2px 10px;font-size:.82rem;margin:0 6px 6px 0}
 
-    .side h2 { font-size: 1rem; margin: 4px 0 10px; color: var(--brand); }
-    .side a {
-      display: block;
-      text-decoration: none;
-      color: var(--muted);
-      padding: 8px 10px;
-      border-radius: 10px;
-      margin-bottom: 6px;
-      transition: .2s;
-      border: 1px solid transparent;
-    }
-    .side a:hover { background: #eef6ff; color: var(--brand-2); border-color: #c9dcff; }
+    .sim-controls{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px;margin-bottom:10px}
+    .control{background:#f8fbff;border:1px solid var(--line);border-radius:12px;padding:10px}
+    .control label{display:flex;justify-content:space-between;font-size:.9rem;color:#334155;margin-bottom:8px}
+    .control input{width:100%}
 
-    .section {
-      background: var(--card);
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      margin-bottom: 18px;
-      overflow: hidden;
-    }
+    .sim-kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin:10px 0}
+    .sim-kpi{border:1px solid var(--line);border-radius:12px;padding:10px;background:#fff}
+    .sim-kpi b{display:block;font-size:1.08rem}
 
-    .section > header {
-      padding: 18px 20px;
-      border-bottom: 1px solid var(--line);
-      background: #fafcff;
-    }
+    .canvas-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:10px}
+    canvas{width:100%;height:220px;border:1px solid var(--line);border-radius:12px;background:linear-gradient(180deg,#ffffff,#f7fbff)}
 
-    .section h2, .section h3 { margin: 0; }
-    .section h2 { font-size: 1.22rem; }
-    .section .content { padding: 18px 20px 20px; }
+    .note{padding:12px;border-left:4px solid var(--brand);background:#ecfdf7;border-radius:10px;color:#065f46}
 
-    .pillars {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 12px;
-      margin-top: 10px;
-    }
+    table{width:100%;border-collapse:collapse;font-size:.94rem}
+    th,td{border:1px solid var(--line);padding:9px;vertical-align:top;line-height:1.6}
+    th{background:#f8fbff}
+    .scroll{overflow:auto}
 
-    .card {
-      border: 1px solid var(--line);
-      border-radius: 12px;
-      padding: 14px;
-      background: #fff;
-    }
+    .reveal{opacity:0;transform:translateY(12px);transition:.45s ease}
+    .reveal.show{opacity:1;transform:none}
 
-    .card h4 { margin: 0 0 8px; color: var(--brand); }
-    .card p, li { color: var(--muted); line-height: 1.75; }
+    footer{text-align:center;padding:20px;color:#64748b;font-size:.92rem}
 
-    .tabs {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin-bottom: 14px;
-    }
-
-    .tab {
-      border: 1px solid #cddcf5;
-      background: #f6faff;
-      color: #1e3a8a;
-      border-radius: 999px;
-      padding: 6px 12px;
-      cursor: pointer;
-      font-size: .92rem;
-    }
-
-    .tab.active { background: #1d4ed8; color: #fff; border-color: #1d4ed8; }
-    .case-panel { display: none; }
-    .case-panel.active { display: block; }
-
-    .case-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 12px;
-    }
-
-    .tag {
-      display: inline-block;
-      border: 1px solid #b8d6ff;
-      color: #1d4ed8;
-      background: #eef5ff;
-      border-radius: 999px;
-      padding: 2px 10px;
-      font-size: .82rem;
-      margin-right: 6px;
-      margin-bottom: 6px;
-    }
-
-    .table-wrap { overflow-x: auto; }
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      min-width: 760px;
-      font-size: .95rem;
-    }
-
-    th, td {
-      border: 1px solid var(--line);
-      padding: 10px;
-      vertical-align: top;
-      line-height: 1.6;
-    }
-
-    th { background: #f8fbff; text-align: left; color: #0f172a; }
-
-    .highlight {
-      border-left: 4px solid var(--brand);
-      background: #f0fdfa;
-      padding: 12px;
-      border-radius: 10px;
-      color: #115e59;
-      margin: 12px 0;
-      line-height: 1.75;
-    }
-
-    footer {
-      text-align: center;
-      padding: 22px;
-      color: var(--muted);
-      font-size: .92rem;
-    }
-
-    @media (max-width: 980px) {
-      .main-wrap { grid-template-columns: 1fr; }
-      .side { position: static; }
-    }
+    @media (max-width:980px){.layout{grid-template-columns:1fr}.side{position:static}}
   </style>
 </head>
 <body>
   <section class="hero">
-    <div class="hero-wrap">
-      <h1>龍科國小校舍規劃策略平台</h1>
-      <p>
-        整合「全球八大指標校園案例」與「龍潭在地化社經分析」，將抽象政策、教育願景、建築語彙與空間機能，
-        轉譯為可執行的建校參考框架，支援 114 學年度啟動後的中長期校舍規劃。
-      </p>
+    <div class="wrap">
+      <h1>龍科國小校舍規劃｜沉浸式策略儀表板</h1>
+      <p>升級版整合「全球案例 × 在地轉譯 × 模擬可視化」。除了策略內容，也加入抗震、日照、風場、氣候舒適度互動模擬，讓規劃報告更具說服力與展示感。</p>
       <div class="kpis">
-        <div class="kpi"><b>8</b>全球典範案例</div>
-        <div class="kpi"><b>4</b>核心空間主軸</div>
-        <div class="kpi"><b>3,600+</b>預估科技就業導入</div>
-        <div class="kpi"><b>114</b>學年度設校節點</div>
+        <div class="kpi"><b data-count="8">0</b>全球典範案例</div>
+        <div class="kpi"><b data-count="4">0</b>核心空間主軸</div>
+        <div class="kpi"><b data-count="3600">0</b>預估科技就業導入</div>
+        <div class="kpi"><b data-count="114">0</b>學年度設校節點</div>
       </div>
     </div>
   </section>
 
-  <main class="main-wrap">
-    <nav class="side" aria-label="章節導航">
-      <h2>快速導覽</h2>
+  <main class="wrap layout">
+    <nav class="glass side">
+      <h3>快速導覽</h3>
       <a href="#overview">專案摘要</a>
-      <a href="#global">八大國際案例</a>
-      <a href="#local">在地化研究重點</a>
-      <a href="#strategy">空間與教學策略</a>
-      <a href="#roadmap">建設路線圖</a>
-      <a href="#matrix">整合對照矩陣</a>
+      <a href="#global">國際案例互動</a>
+      <a href="#local">在地化分析</a>
+      <a href="#sim">建築模擬系統</a>
+      <a href="#strategy">空間策略</a>
+      <a href="#roadmap">分期路線</a>
     </nav>
 
     <div>
-      <section class="section" id="overview">
-        <header><h2>專案摘要：從教育願景到可執行空間</h2></header>
+      <section id="overview" class="section glass reveal">
+        <header><h2>專案摘要：教育目標 × 建築實踐 × 社會縫合</h2></header>
         <div class="content">
-          <p>
-            本頁面聚焦龍科國小三大任務：<b>雙語亮點學校</b>、<b>智慧科技教育基地</b>、<b>社區縫合樞紐</b>。
-            核心方法為「案例拆解 → 在地轉譯 → 空間配置 → 分期落地」，協助決策單位快速對齊。
-          </p>
-          <div class="pillars">
-            <article class="card">
-              <h4>教育定位</h4>
-              <p>建立 Community Hub 型校園，讓行政、外師、學生與社區在同一知識場域交會。</p>
-            </article>
-            <article class="card">
-              <h4>建築定位</h4>
-              <p>融合客家地景與科技語彙，發展「文化可讀、科技可見、永續可學」的校舍語言。</p>
-            </article>
-            <article class="card">
-              <h4>社會定位</h4>
-              <p>回應龍科三期擴建後的人口重組與在地情感，讓新校成為社區共識重建平台。</p>
-            </article>
+          <div class="grid g3">
+            <article class="card"><h4>教育定位</h4><p>以雙語沉浸 Hub 與智慧教學節點，讓正式課程與非正式學習同時發生。</p></article>
+            <article class="card"><h4>建築定位</h4><p>結合客家空間語彙、科技立面與永續材料，打造有文化辨識度的校園。</p></article>
+            <article class="card"><h4>社會定位</h4><p>承接在地記憶與新住民需求，將校園設計為社區共融與公共對話平台。</p></article>
           </div>
         </div>
       </section>
 
-      <section class="section" id="global">
-        <header><h2>全球八大指標校園：重點轉譯面板</h2></header>
+      <section id="global" class="section glass reveal">
+        <header><h2>全球八大指標校園：互動對照面板</h2></header>
         <div class="content">
           <div class="tabs" id="tabs"></div>
           <article class="case-panel active" data-case="0"></article>
@@ -264,227 +144,171 @@
         </div>
       </section>
 
-      <section class="section" id="local">
-        <header><h2>在地化報告重點：龍潭科學園區與校園發展耦合</h2></header>
+      <section id="local" class="section glass reveal">
+        <header><h2>在地化核心觀察：龍科園區擴張下的校園角色</h2></header>
         <div class="content">
-          <div class="highlight">
-            龍科國小不是單一教育建案，而是「科技產業升級 × 地方社會重構 × 新教育模型」的交會節點。
-            校舍規劃需同時滿足科技家庭期待、安置戶情感修復與地方共榮。
-          </div>
-          <div class="table-wrap">
+          <p class="note">龍科國小不只是學校，而是「科技產業升級、地方社會修復與新教育模型」交會的公共節點。</p>
+          <div class="scroll">
             <table>
-              <thead>
-                <tr>
-                  <th>觀察面向</th>
-                  <th>轉型前</th>
-                  <th>轉型後</th>
-                  <th>校園設計回應</th>
-                </tr>
-              </thead>
+              <thead><tr><th>面向</th><th>轉型前</th><th>轉型後</th><th>校園回應策略</th></tr></thead>
               <tbody>
-                <tr>
-                  <td>產業結構</td>
-                  <td>農業與地方微型商業</td>
-                  <td>半導體、淨零科技、航太產業鏈</td>
-                  <td>增設 STEM/AI 實驗場域與產學介面，建立科技素養路徑。</td>
-                </tr>
-                <tr>
-                  <td>人口與家長期待</td>
-                  <td>在地聚落、人口老化</td>
-                  <td>高學歷科技家庭移入、社經背景異質化</td>
-                  <td>兼顧雙語國際課程與在地文化課程，打造高彈性教學空間。</td>
-                </tr>
-                <tr>
-                  <td>土地與空間</td>
-                  <td>農地、聚落與家族場域</td>
-                  <td>園區廠房、新興住宅、安置社區</td>
-                  <td>導入綠帶緩衝、開放共享廣場、社區動線融合設計。</td>
-                </tr>
-                <tr>
-                  <td>社會心理</td>
-                  <td>在地穩定生活記憶</td>
-                  <td>徵收創傷與發展期待並存</td>
-                  <td>建置記憶廊道/村史展示，將校園作為社會縫合器。</td>
-                </tr>
+                <tr><td>產業結構</td><td>農業與地方商業</td><td>半導體、淨零、航太</td><td>建立 STEM / AI 實作場域與產學展示廊道。</td></tr>
+                <tr><td>人口組成</td><td>在地聚落與高齡化</td><td>科技家庭移入、社經異質化</td><td>雙語＋在地文化雙主軸課程與彈性教室。</td></tr>
+                <tr><td>空間環境</td><td>農地與傳統聚落</td><td>園區廠房與新住宅區</td><td>綠帶緩衝、人車分流、口袋公園共享。</td></tr>
+                <tr><td>社會心理</td><td>地方穩定記憶</td><td>徵收創傷與發展期待共存</td><td>記憶廊道、村史展示、社區共學中心。</td></tr>
               </tbody>
             </table>
           </div>
         </div>
       </section>
 
-      <section class="section" id="strategy">
-        <header><h2>四大空間策略主軸（可直接納入規劃書）</h2></header>
+      <section id="sim" class="section glass reveal">
+        <header><h2>建築模擬系統（概念版）：抗震・日照・風場・氣候舒適度</h2></header>
         <div class="content">
-          <div class="pillars">
-            <article class="card">
-              <h4>1) 雙語沉浸 Hub</h4>
-              <p>以開放式 Community Hub 串聯外師、行政與學生活動，將走廊、轉角、階梯都變成語言互動節點。</p>
-            </article>
-            <article class="card">
-              <h4>2) 結構教材化</h4>
-              <p>參考 CLT 與可視化機電策略，讓結構、設備、能源系統成為跨學科教學素材。</p>
-            </article>
-            <article class="card">
-              <h4>3) 高機動學習空間</h4>
-              <p>採固定基座＋模組家具，讓教室可快速轉換為劇場、辯論場、創客空間與觀議課場地。</p>
-            </article>
-            <article class="card">
-              <h4>4) 人車分流與社區共融</h4>
-              <p>以立體化動線（地下接送或屋頂平台）降低衝突，並透過口袋公園與共享場館強化社區關係。</p>
-            </article>
+          <div class="sim-controls">
+            <div class="control"><label>地震規模 M <span id="v-mag">6.2</span></label><input id="mag" type="range" min="4.5" max="8.0" step="0.1" value="6.2"></div>
+            <div class="control"><label>結構阻尼比 % <span id="v-damp">5</span></label><input id="damp" type="range" min="2" max="20" step="1" value="5"></div>
+            <div class="control"><label>夏季平均風速 m/s <span id="v-wind">4.8</span></label><input id="wind" type="range" min="1" max="12" step="0.1" value="4.8"></div>
+            <div class="control"><label>外殼遮陽效率 % <span id="v-shade">62</span></label><input id="shade" type="range" min="20" max="95" step="1" value="62"></div>
+            <div class="control"><label>平均氣溫 °C <span id="v-temp">29</span></label><input id="temp" type="range" min="15" max="36" step="0.5" value="29"></div>
+            <div class="control"><label>相對濕度 % <span id="v-hum">72</span></label><input id="hum" type="range" min="35" max="95" step="1" value="72"></div>
+          </div>
+
+          <div class="sim-kpis">
+            <div class="sim-kpi"><b id="k-seismic">B+</b>抗震表現等級</div>
+            <div class="sim-kpi"><b id="k-daylight">68%</b>有效日照利用率</div>
+            <div class="sim-kpi"><b id="k-wind">良好</b>通風潛力評估</div>
+            <div class="sim-kpi"><b id="k-comfort">62</b>熱舒適指數 (0-100)</div>
+          </div>
+
+          <div class="canvas-grid">
+            <div>
+              <p><b>抗震反應曲線（概念）</b></p>
+              <canvas id="c-seismic" width="420" height="220"></canvas>
+            </div>
+            <div>
+              <p><b>日照路徑與遮陽覆蓋（概念）</b></p>
+              <canvas id="c-sun" width="420" height="220"></canvas>
+            </div>
+            <div>
+              <p><b>風場玫瑰圖（概念）</b></p>
+              <canvas id="c-wind" width="420" height="220"></canvas>
+            </div>
+            <div>
+              <p><b>熱舒適趨勢（概念）</b></p>
+              <canvas id="c-climate" width="420" height="220"></canvas>
+            </div>
           </div>
         </div>
       </section>
 
-      <section class="section" id="roadmap">
+      <section id="strategy" class="section glass reveal">
+        <header><h2>四大空間策略主軸</h2></header>
+        <div class="content">
+          <div class="grid g2">
+            <article class="card"><h4>1) 雙語沉浸 Hub</h4><p>把行政、外師與學生活動整合為連續交流場，減少「語言只在課堂發生」的侷限。</p></article>
+            <article class="card"><h4>2) 結構教材化</h4><p>以可視化結構、機電與能源數據，支持 Science & Environment 跨域教學。</p></article>
+            <article class="card"><h4>3) 高機動空間</h4><p>固定基座＋模組家具，教室可在 5 分鐘內切換為劇場、辯論、觀議課或創客實作。</p></article>
+            <article class="card"><h4>4) 人車分流與社區共享</h4><p>立體接送動線與獨立出入口，平衡校安、社區使用與園區交通壓力。</p></article>
+          </div>
+        </div>
+      </section>
+
+      <section id="roadmap" class="section glass reveal">
         <header><h2>建設路線圖（建議分期）</h2></header>
         <div class="content">
-          <div class="case-grid">
-            <article class="card">
-              <h4>Phase A｜設校啟動（0–12 個月）</h4>
-              <ul>
-                <li>完成總體配置與交通微模擬。</li>
-                <li>確認雙語直播棚、協同備課區與多功能中心規格。</li>
-                <li>導入社區溝通機制與記憶保存計畫。</li>
-              </ul>
-            </article>
-            <article class="card">
-              <h4>Phase B｜主體工程（12–30 個月）</h4>
-              <ul>
-                <li>完成教學棟、創客實驗室與綠帶系統。</li>
-                <li>佈建高頻寬網路、智慧門禁與能源可視化系統。</li>
-                <li>建立可獨立開放的社區共享動線。</li>
-              </ul>
-            </article>
-            <article class="card">
-              <h4>Phase C｜運營優化（30 個月後）</h4>
-              <ul>
-                <li>根據招生與學習成效滾動調整空間。</li>
-                <li>擴大國際觀議課與城市級教育合作。</li>
-                <li>持續深化地方文化展示與生態教育路徑。</li>
-              </ul>
-            </article>
+          <div class="grid g3">
+            <article class="card"><h4>Phase A｜0–12 月</h4><ul><li>總體配置與交通模擬。</li><li>直播棚與協作備課空間定義。</li><li>社區溝通與記憶保存工作坊。</li></ul></article>
+            <article class="card"><h4>Phase B｜12–30 月</h4><ul><li>主體教學棟與創客實驗室。</li><li>智慧監測與能源可視化導入。</li><li>共享場館獨立動線落地。</li></ul></article>
+            <article class="card"><h4>Phase C｜30 月+</h4><ul><li>依招生與教學成效滾動更新。</li><li>擴充城市級雙語觀議課網路。</li><li>深化地方文化與生態課程場景。</li></ul></article>
           </div>
-        </div>
-      </section>
-
-      <section class="section" id="matrix">
-        <header><h2>全球案例 × 龍科轉譯 對照矩陣</h2></header>
-        <div class="content">
-          <span class="tag">希望之丘：地景化閱讀</span>
-          <span class="tag">Amanenomori：安全與循環動線</span>
-          <span class="tag">昭和學院：結構教材化</span>
-          <span class="tag">YIS：Hub 型學習網絡</span>
-          <span class="tag">光武：人車分流與社區共享</span>
-          <span class="tag">陽光：家具定義空間</span>
-          <span class="tag">關埔：微地形與自然教育</span>
-          <span class="tag">巢鴨北：高密度垂直校園</span>
-          <p>
-            建議在規劃報告附錄中，將每個案例對應到「場域原型 + 成本等級 + 工程可行性 + 教學成效指標」，
-            形成可評估、可招標、可驗收的決策儀表板。
-          </p>
         </div>
       </section>
     </div>
   </main>
 
-  <footer>
-    龍科國小規劃參考平台｜教育、建築、社會三軸整合版
-  </footer>
+  <footer>龍科國小策略平台｜教育 × 建築 × 社會 × 模擬可視化</footer>
 
   <script>
     const caseData = [
-      {
-        title: "專案一｜大阪希望之丘中小學（KKAA）",
-        tags: ["碎片化量體", "階梯閱讀坡", "地景延伸"],
-        concept: "以『消去建築』降低量體壓迫，讓學校像丘陵中的村落。",
-        highlights: ["大型階梯閱讀區取代傳統圖書館", "走廊與轉角布置去中心化書架", "木質與大面開窗模糊室內外界線"],
-        translation: "可於雙語推動辦公室周邊設置階梯閱讀坡，結合英語展示、簡報與小型展演。"
-      },
-      {
-        title: "專案二｜Amanenomori 幼兒園（Aisaka Architects）",
-        tags: ["環狀動線", "食育可視化", "能源教育"],
-        concept: "以 O 型結構與 3D 循環遊戲動線提供安全、探索與學習整合。",
-        highlights: ["坡道、橋梁、滑梯一體化", "低地坪玻璃廚房強化食育視角", "地熱管、雨水回收、太陽能可視化"],
-        translation: "低年級與附幼區域導入圓角安全設計，搭配開放行政監看提升透明治理。"
-      },
-      {
-        title: "專案三｜昭和學院附屬小學西樓（日建設計）",
-        tags: ["CLT木構", "碳中和", "建築即教材"],
-        concept: "以國產木材與可視化結構設備，讓永續成為可閱讀的校園日常。",
-        highlights: ["雙向無梁板提高淨高與視野", "可全開教室連接中央活動廣場", "導入 AI 攝影與平板 1:1 教學"],
-        translation: "在龍科導入溫潤木質學習環境，平衡高科技設備帶來的冷感。"
-      },
-      {
-        title: "專案四｜橫濱國際學校 YIS（KKAA）",
-        tags: ["Wooden House", "Every Space Learning", "Community Hub"],
-        concept: "把走廊變成學習空間，把行政區變成交流場域。",
-        highlights: ["Lily Pads 圓形木平台支援多元學習", "可寫式家具鼓勵即時創作", "文化空間平衡國際化與在地美學"],
-        translation: "龍科可建立雙語交流 Hub，縮短外師、行政與學生互動距離。"
-      },
-      {
-        title: "專案五｜高雄光武國小多功能體操館",
-        tags: ["識別意象", "社區共享", "智慧場館"],
-        concept: "以體操專長轉化建築識別，並透過分層動線兼顧校安與社區使用。",
-        highlights: ["地下停車與校園動線分離", "ICT 停車導引提升營運效率", "挑高空間支援賽事與多功能活動"],
-        translation: "龍科可導入避雨接送帶與園區共享空間，緩解尖峰交通壓力。"
-      },
-      {
-        title: "專案六｜新竹陽光國小（田中央）",
-        tags: ["物件定義空間", "模組家具", "幾何學習"],
-        concept: "透過可移動家具，讓課程需求直接重塑空間。",
-        highlights: ["固定基座＋移動家具", "尺寸遵循數學倍數關係", "走廊節點轉為學習據點"],
-        translation: "可快速切換雙語劇場、討論、研習等情境，支援高頻課程轉換。"
-      },
-      {
-        title: "專案七｜新竹關埔國小（田中央）",
-        tags: ["微地形", "去跑道策略", "風環境設計"],
-        concept: "打破標準化校園，讓自然地景與移動成為學習本身。",
-        highlights: ["教室單元如樹冠散布", "草地與起伏廊道取代制式跑道", "通風塔改善強風環境"],
-        translation: "以地坪高差區分動靜區，減少圍牆感並引導自然英語情境學習。"
-      },
-      {
-        title: "專案八｜東京巢鴨北中學（Coelacanth K&H）",
-        tags: ["高密度垂直", "屋頂機能", "社交核心梯"],
-        concept: "在有限基地上，透過垂直堆疊與社交中樞釋放公共性。",
-        highlights: ["泳池與操場上移至屋頂", "X 型核心梯兼具社交與動線", "兩層挑空 LIC 成知識心臟"],
-        translation: "若未來需高容積擴建，可採垂直社交與空中地景策略。"
-      }
+      {title:"大阪希望之丘中小學（KKAA）",tags:["碎片化量體","階梯閱讀","地景延伸"],concept:"消去建築降低尺度壓迫，與住宅環境共生。",highlights:["地形化閱讀坡","去中心化書架節點","室內外模糊介面"],translation:"雙語辦公室周邊導入階梯閱讀＋展演結合空間。"},
+      {title:"Amanenomori 幼兒園",tags:["環狀動線","食育視角","能源可視化"],concept:"O 型結構讓孩子在安全感中持續探索。",highlights:["坡道橋梁滑梯一體化","玻璃廚房食育","地熱雨水太陽能教材化"],translation:"低年級導入圓角安全＋開放式行政監測。"},
+      {title:"昭和學院附小西樓",tags:["CLT","碳中和","建築即教材"],concept:"把木構、機電、設備變成可讀內容。",highlights:["高淨高無梁板","教室與中央廣場連動","AI 攝影與平板教學"],translation:"科技設備嵌入溫潤木質空間，降低冷感。"},
+      {title:"橫濱國際學校 YIS",tags:["Hub","Every Space","可寫家具"],concept:"處處是學習空間，走廊也是教室延伸。",highlights:["Lily Pads 木平台","行政教學薄邊界","文化空間融合"],translation:"建立龍科雙語社群 Hub。"},
+      {title:"高雄光武國小體操館",tags:["識別美學","分層治理","智慧場館"],concept:"運動特色轉為建築語彙，同時兼顧社區共享。",highlights:["地下停車分流","ICT 導引","高彈性挑高空間"],translation:"規劃避雨接送帶與社區共享區。"},
+      {title:"新竹陽光國小",tags:["家具定義空間","模組化","幾何學習"],concept:"把空間配置權交給教學活動。",highlights:["固定基座＋移動家具","尺寸數學化","走廊節點活化"],translation:"支援雙語劇場/討論/展演快速切換。"},
+      {title:"新竹關埔國小",tags:["微地形","去跑道","風環境"],concept:"自然地景與移動成為教育本體。",highlights:["樹冠尺度單元","草地廊道取代制式跑道","引風塔"],translation:"用高差分區動靜學習情境。"},
+      {title:"東京巢鴨北中學",tags:["垂直校園","屋頂機能","核心社交梯"],concept:"狹小基地透過立體化釋放公共空間。",highlights:["屋頂操場/泳池","X 型社交梯","LIC 知識心臟"],translation:"基地受限時可採垂直社交＋空中地景。"}
     ];
 
     const tabs = document.getElementById('tabs');
     const panels = [...document.querySelectorAll('.case-panel')];
+    caseData.forEach((c,i)=>{
+      const b=document.createElement('button');
+      b.className=`tab ${i===0?'active':''}`; b.textContent=`案例 ${i+1}`;
+      b.onclick=()=>activate(i); tabs.appendChild(b);
+      panels[i].innerHTML=`<div class='grid g3'><article class='card'><h4>${c.title}</h4>${c.tags.map(t=>`<span class='tag'>${t}</span>`).join('')}<p><b>設計理念：</b>${c.concept}</p></article><article class='card'><h4>空間亮點</h4><ul>${c.highlights.map(h=>`<li>${h}</li>`).join('')}</ul></article><article class='card'><h4>對龍科轉譯</h4><p>${c.translation}</p></article></div>`;
+    });
+    function activate(i){document.querySelectorAll('.tab').forEach((e,idx)=>e.classList.toggle('active',idx===i));panels.forEach((p,idx)=>p.classList.toggle('active',idx===i));}
 
-    caseData.forEach((c, i) => {
-      const btn = document.createElement('button');
-      btn.className = `tab ${i === 0 ? 'active' : ''}`;
-      btn.textContent = `案例 ${i + 1}`;
-      btn.addEventListener('click', () => activate(i));
-      tabs.appendChild(btn);
-
-      panels[i].innerHTML = `
-        <div class="case-grid">
-          <article class="card">
-            <h3>${c.title}</h3>
-            ${c.tags.map(t => `<span class='tag'>${t}</span>`).join('')}
-            <p><b>設計理念：</b>${c.concept}</p>
-          </article>
-          <article class="card">
-            <h4>空間亮點</h4>
-            <ul>${c.highlights.map(h => `<li>${h}</li>`).join('')}</ul>
-          </article>
-          <article class="card">
-            <h4>對龍科國小的轉譯</h4>
-            <p>${c.translation}</p>
-          </article>
-        </div>
-      `;
+    document.querySelectorAll('[data-count]').forEach(el=>{
+      const target=Number(el.dataset.count); let cur=0; const step=Math.max(1,Math.round(target/45));
+      const t=setInterval(()=>{cur=Math.min(target,cur+step);el.textContent=target>=1000?cur.toLocaleString():cur;if(cur===target)clearInterval(t)},22)
     });
 
-    function activate(i) {
-      document.querySelectorAll('.tab').forEach((el, idx) => el.classList.toggle('active', idx === i));
-      panels.forEach((p, idx) => p.classList.toggle('active', idx === i));
+    const io=new IntersectionObserver(entries=>entries.forEach(e=>e.isIntersecting&&e.target.classList.add('show')),{threshold:.12});
+    document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+    const ids=['mag','damp','wind','shade','temp','hum'];
+    const map={mag:'v-mag',damp:'v-damp',wind:'v-wind',shade:'v-shade',temp:'v-temp',hum:'v-hum'};
+    ids.forEach(id=>document.getElementById(id).addEventListener('input',updateSim));
+
+    function scoreSeismic(mag,damp){const v=Math.max(25,100-(mag-5)*22+damp*2.3);return Math.min(98,Math.round(v));}
+    function scoreDaylight(shade){return Math.round(85-(shade-20)*0.35);}
+    function scoreComfort(temp,hum,wind){const base=100-Math.abs(temp-25)*4-Math.abs(hum-55)*.75;return Math.max(20,Math.min(95,Math.round(base+wind*1.2)));}
+    function windLabel(ws){return ws<3?'偏弱':ws<6?'良好':ws<9?'活躍':'強風管理'}
+    function grade(s){return s>=85?'A':s>=75?'A-':s>=65?'B+':s>=55?'B':'C'}
+
+    function draw(ctx,cb){ctx.clearRect(0,0,ctx.canvas.width,ctx.canvas.height);cb(ctx,ctx.canvas.width,ctx.canvas.height)}
+    function line(ctx,pts,color='#2563eb'){ctx.beginPath();pts.forEach((p,i)=>i?ctx.lineTo(p[0],p[1]):ctx.moveTo(p[0],p[1]));ctx.strokeStyle=color;ctx.lineWidth=2;ctx.stroke();}
+
+    function renderSeismic(score){const c=document.getElementById('c-seismic').getContext('2d');draw(c,(ctx,w,h)=>{
+      ctx.strokeStyle='#d7e2f0'; for(let i=1;i<5;i++){ctx.beginPath();ctx.moveTo(30,i*h/5);ctx.lineTo(w-10,i*h/5);ctx.stroke();}
+      const amp=(100-score)/100*55+12; const pts=[]; for(let x=30;x<w-10;x+=6){const t=(x-30)/32; const y=h/2+Math.sin(t*2.7)*amp*Math.exp(-t/8); pts.push([x,y]);}
+      line(ctx,pts,'#7c3aed'); ctx.fillStyle='#334155'; ctx.fillText(`結構反應幅值：${Math.round(amp)} mm`,36,20);
+    });}
+
+    function renderSun(daylight,shade){const c=document.getElementById('c-sun').getContext('2d');draw(c,(ctx,w,h)=>{
+      ctx.strokeStyle='#e2e8f0'; ctx.beginPath();ctx.arc(w/2,h+30,150,Math.PI,Math.PI*2);ctx.stroke();
+      const x=w/2 + (daylight-50)*2; const y=h-130 + (shade-50)*.35; ctx.beginPath();ctx.arc(Math.max(40,Math.min(w-30,x)),Math.max(30,Math.min(h-25,y)),10,0,Math.PI*2); ctx.fillStyle='#f59e0b'; ctx.fill();
+      ctx.fillStyle='rgba(37,99,235,.22)'; ctx.fillRect(40,h-68,w-80,28); ctx.fillStyle='#334155'; ctx.fillText(`遮陽效率：${shade}%`,45,h-75); ctx.fillText(`有效日照：${daylight}%`,w-145,h-75);
+    });}
+
+    function renderWind(ws){const c=document.getElementById('c-wind').getContext('2d');draw(c,(ctx,w,h)=>{
+      const cx=w/2,cy=h/2+8; ctx.strokeStyle='#e2e8f0'; [24,46,68].forEach(r=>{ctx.beginPath();ctx.arc(cx,cy,r,0,Math.PI*2);ctx.stroke();});
+      for(let i=0;i<8;i++){const a=i*Math.PI/4; const len=28+((Math.sin(i+ws)+1)/2)*(ws*7); ctx.beginPath();ctx.moveTo(cx,cy);ctx.lineTo(cx+Math.cos(a)*len,cy+Math.sin(a)*len);ctx.strokeStyle='#2563eb';ctx.lineWidth=3;ctx.stroke();}
+      ctx.fillStyle='#334155'; ctx.fillText(`平均風速：${ws.toFixed(1)} m/s`,18,20);
+    });}
+
+    function renderClimate(temp,hum,comfort){const c=document.getElementById('c-climate').getContext('2d');draw(c,(ctx,w,h)=>{
+      ctx.strokeStyle='#e2e8f0';ctx.beginPath();ctx.moveTo(30,h-26);ctx.lineTo(w-12,h-26);ctx.stroke();
+      const pts=[]; for(let i=0;i<12;i++){const x=30+i*(w-48)/11; const y=h-35-((comfort + Math.sin(i/2)*10 - i*1.3)/100)*(h-70); pts.push([x,y]);}
+      line(ctx,pts,'#0f766e'); ctx.fillStyle='#334155'; ctx.fillText(`舒適度：${comfort}`,32,20); ctx.fillText(`T ${temp}°C / RH ${hum}%`,w-145,20);
+    });}
+
+    function updateSim(){
+      const mag=+magEl.value,damp=+dampEl.value,wind=+windEl.value,shade=+shadeEl.value,temp=+tempEl.value,hum=+humEl.value;
+      ids.forEach(id=>document.getElementById(map[id]).textContent=document.getElementById(id).value);
+      const s=scoreSeismic(mag,damp), d=scoreDaylight(shade), c=scoreComfort(temp,hum,wind);
+      document.getElementById('k-seismic').textContent=grade(s);
+      document.getElementById('k-daylight').textContent=`${d}%`;
+      document.getElementById('k-wind').textContent=windLabel(wind);
+      document.getElementById('k-comfort').textContent=c;
+      renderSeismic(s); renderSun(d,shade); renderWind(wind); renderClimate(temp,hum,c);
     }
+
+    const magEl=document.getElementById('mag'),dampEl=document.getElementById('damp'),tempEl=document.getElementById('temp'),humEl=document.getElementById('hum');
+    updateSim();
   </script>
 </body>
 </html>
