@@ -3,143 +3,487 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>龍科國小校舍規劃決策平台｜工程級概念評估版</title>
+  <title>龍科國小校舍規劃｜旗艦級設計策略中控台</title>
   <style>
-    :root{
-      --bg:#edf3fb;
-      --panel:#ffffff;
-      --ink:#0f172a;
-      --muted:#475569;
-      --line:#d7e3f2;
-      --brand:#0f766e;
-      --brand2:#2563eb;
-      --accent:#7c3aed;
-      --ok:#166534;
-      --warn:#b45309;
-      --bad:#991b1b;
-      --shadow:0 16px 40px rgba(15,23,42,.09);
-      --radius:16px;
+    :root {
+      --bg: #edf3fb;
+      --panel: #ffffff;
+      --text: #0f172a;
+      --muted: #475569;
+      --line: #d8e4f2;
+      --brand: #0f766e;
+      --brand2: #2563eb;
+      --brand3: #7c3aed;
+      --ok: #166534;
+      --warn: #b45309;
+      --bad: #991b1b;
+      --radius: 18px;
+      --shadow: 0 20px 45px rgba(15, 23, 42, .08);
     }
-    *{box-sizing:border-box}
-    html,body{margin:0;padding:0;font-family:"Noto Sans TC","PingFang TC","Microsoft JhengHei",system-ui,sans-serif;color:var(--ink)}
-    body{background:radial-gradient(circle at 8% -20%, #d3fff7 0%, transparent 40%),radial-gradient(circle at 92% -30%, #dce8ff 0%, transparent 35%),var(--bg)}
 
-    .hero{position:relative;overflow:hidden;padding:56px 24px 40px;background:linear-gradient(120deg,#0f766e,#2563eb 55%,#4f46e5);color:#fff}
-    .hero::before,.hero::after{content:"";position:absolute;border-radius:999px;filter:blur(22px);opacity:.18;pointer-events:none}
-    .hero::before{width:260px;height:260px;right:-90px;top:-70px;background:#fff;animation:f 9s ease-in-out infinite}
-    .hero::after{width:220px;height:220px;left:-70px;bottom:-120px;background:#93c5fd;animation:f 11s ease-in-out infinite reverse}
-    @keyframes f{0%,100%{transform:translateY(0)}50%{transform:translateY(18px)}}
+    * { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; }
+    body {
+      font-family: "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", system-ui, sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 8% -20%, #d5fbf5 0, transparent 40%),
+        radial-gradient(circle at 92% -24%, #d9e7ff 0, transparent 36%),
+        var(--bg);
+      scroll-behavior: smooth;
+    }
 
-    .wrap{max-width:1260px;margin:0 auto}
-    h1{margin:0 0 10px;font-size:clamp(1.8rem,3.1vw,2.8rem)}
-    .hero p{margin:0;max-width:980px;line-height:1.8;color:#ecf4ff}
+    .hero {
+      position: relative;
+      overflow: hidden;
+      padding: 64px 24px 44px;
+      color: #fff;
+      background: linear-gradient(125deg, #0f766e 0%, #2563eb 52%, #4f46e5 100%);
+    }
 
-    .kpis{margin-top:20px;display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:10px}
-    .kpi{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.3);border-radius:12px;padding:12px;backdrop-filter:blur(5px)}
-    .kpi b{display:block;font-size:1.2rem;margin-bottom:4px}
+    .hero::before,
+    .hero::after {
+      content: "";
+      position: absolute;
+      border-radius: 999px;
+      filter: blur(28px);
+      opacity: .2;
+      pointer-events: none;
+    }
 
-    .layout{display:grid;grid-template-columns:280px 1fr;gap:18px;padding:22px}
-    .glass{background:rgba(255,255,255,.86);border:1px solid var(--line);box-shadow:var(--shadow);backdrop-filter:blur(6px);border-radius:var(--radius)}
+    .hero::before {
+      width: 300px;
+      height: 300px;
+      right: -90px;
+      top: -110px;
+      background: #fff;
+      animation: float 10s ease-in-out infinite;
+    }
 
-    .side{position:sticky;top:12px;padding:14px;align-self:start}
-    .side h3{margin:0 0 8px;color:var(--brand)}
-    .side a{display:block;text-decoration:none;color:var(--muted);padding:8px 10px;border-radius:10px;border:1px solid transparent;margin-bottom:5px;transition:.2s}
-    .side a:hover{background:#eef6ff;border-color:#c7dbf9;color:var(--brand2);transform:translateX(2px)}
+    .hero::after {
+      width: 240px;
+      height: 240px;
+      left: -80px;
+      bottom: -110px;
+      background: #93c5fd;
+      animation: float 12s ease-in-out infinite reverse;
+    }
 
-    .section{margin-bottom:15px;overflow:hidden}
-    .section header{padding:16px 18px;border-bottom:1px solid var(--line);background:#f8fbff}
-    .section header h2{margin:0;font-size:1.16rem}
-    .content{padding:16px 18px}
+    @keyframes float {
+      0%,100% { transform: translateY(0); }
+      50% { transform: translateY(18px); }
+    }
 
-    .grid{display:grid;gap:10px}
-    .g2{grid-template-columns:repeat(auto-fit,minmax(300px,1fr))}
-    .g3{grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
-    .card{background:#fff;border:1px solid var(--line);border-radius:12px;padding:12px}
-    .card h4{margin:0 0 8px;color:var(--brand)}
-    p,li{line-height:1.7;color:var(--muted)}
+    .wrap { max-width: 1320px; margin: 0 auto; }
+    h1 {
+      margin: 0 0 10px;
+      font-size: clamp(2rem, 3vw, 3rem);
+      line-height: 1.2;
+      letter-spacing: .2px;
+    }
 
-    .tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px}
-    .tab{border:1px solid #bad2f6;background:#f1f6ff;color:#1d4ed8;border-radius:999px;padding:6px 11px;cursor:pointer;transition:.2s}
-    .tab.active,.tab:hover{background:#1d4ed8;color:#fff}
-    .case-panel{display:none}.case-panel.active{display:block;animation:fade .25s}
-    @keyframes fade{from{opacity:.25;transform:translateY(6px)}to{opacity:1;transform:none}}
+    .hero p {
+      margin: 0;
+      max-width: 1020px;
+      color: #ecf4ff;
+      line-height: 1.9;
+      font-size: 1.02rem;
+    }
 
-    .tag{display:inline-block;padding:2px 10px;border-radius:999px;background:#edf4ff;border:1px solid #c3dafd;color:#1d4ed8;font-size:.82rem;margin:0 6px 6px 0}
+    .kpis {
+      margin-top: 20px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+      gap: 10px;
+    }
 
-    .input-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:10px;margin-bottom:10px}
-    .control{background:#f8fbff;border:1px solid var(--line);border-radius:12px;padding:10px}
-    .control label{display:flex;justify-content:space-between;font-size:.9rem;color:#334155;margin-bottom:6px}
-    .control input,.control select{width:100%}
+    .kpi {
+      background: rgba(255,255,255,.12);
+      border: 1px solid rgba(255,255,255,.3);
+      border-radius: 12px;
+      padding: 12px;
+      backdrop-filter: blur(5px);
+      transform: translateY(8px);
+      opacity: 0;
+      animation: rise .6s forwards;
+    }
 
-    .result-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:10px;margin-bottom:10px}
-    .res{border:1px solid var(--line);border-radius:12px;background:#fff;padding:10px}
-    .res b{display:block;font-size:1.1rem}
+    .kpi:nth-child(2){animation-delay:.08s}
+    .kpi:nth-child(3){animation-delay:.16s}
+    .kpi:nth-child(4){animation-delay:.24s}
+    .kpi:nth-child(5){animation-delay:.32s}
 
-    .status-ok{color:var(--ok)}.status-warn{color:var(--warn)}.status-bad{color:var(--bad)}
+    @keyframes rise { to { transform: none; opacity: 1; } }
 
-    .canvas-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:10px}
-    canvas{width:100%;height:220px;border:1px solid var(--line);border-radius:12px;background:linear-gradient(180deg,#fff,#f7fbff)}
+    .kpi b { display:block; font-size: 1.22rem; margin-bottom: 4px; }
 
-    .btns{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
-    button.action{border:1px solid #bfd4f7;background:#f3f8ff;color:#1e40af;border-radius:10px;padding:8px 11px;cursor:pointer}
-    button.action:hover{background:#e7f0ff}
+    .sticky-top-nav {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      background: rgba(255,255,255,.8);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--line);
+    }
 
-    .table-wrap{overflow:auto}
-    table{width:100%;border-collapse:collapse;font-size:.93rem;min-width:800px}
-    th,td{border:1px solid var(--line);padding:8px;vertical-align:top;line-height:1.6}
-    th{background:#f8fbff;text-align:left}
+    .top-nav-inner {
+      max-width: 1320px;
+      margin: 0 auto;
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      padding: 8px 12px;
+    }
 
-    .wall-card{position:relative;overflow:hidden}
-    .wall-card svg{width:100%;height:170px;display:block;border:1px solid var(--line);border-radius:10px;background:#f9fbff}
-    .score-pill{position:absolute;top:10px;right:10px;background:#fff;border:1px solid var(--line);padding:4px 8px;border-radius:999px;font-size:.82rem}
+    .pill-link {
+      white-space: nowrap;
+      text-decoration: none;
+      color: #1e3a8a;
+      border: 1px solid #c5d8f7;
+      background: #eef5ff;
+      padding: 6px 12px;
+      border-radius: 999px;
+      font-size: .88rem;
+      transition: .2s;
+    }
 
-    .hint{border-left:4px solid var(--brand);background:#ecfdf7;border-radius:10px;padding:10px;color:#065f46}
-    .footnote{font-size:.85rem;color:#64748b}
+    .pill-link:hover { background: #1d4ed8; color: #fff; border-color:#1d4ed8; }
 
-    .reveal{opacity:0;transform:translateY(10px);transition:.4s ease}
-    .reveal.show{opacity:1;transform:none}
+    .layout {
+      display: grid;
+      grid-template-columns: 290px 1fr;
+      gap: 16px;
+      padding: 22px;
+      align-items: start;
+    }
 
-    footer{text-align:center;padding:22px;color:#64748b;font-size:.92rem}
-    @media(max-width:980px){.layout{grid-template-columns:1fr}.side{position:static}}
+    .glass {
+      background: rgba(255,255,255,.86);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(8px);
+    }
+
+    .side {
+      position: sticky;
+      top: 52px;
+      padding: 14px;
+    }
+
+    .side h3 { margin: 0 0 10px; color: var(--brand); }
+
+    .side a {
+      display:block;
+      text-decoration:none;
+      color: var(--muted);
+      padding: 9px 10px;
+      margin-bottom: 6px;
+      border-radius: 10px;
+      border:1px solid transparent;
+      transition: .2s;
+    }
+
+    .side a:hover { background:#eef6ff; border-color:#c7daf8; color: var(--brand2); transform:translateX(2px); }
+
+    .section { margin-bottom: 14px; overflow: hidden; }
+    .section header {
+      border-bottom: 1px solid var(--line);
+      background: #f8fbff;
+      padding: 16px 18px;
+    }
+    .section header h2 { margin:0; font-size: 1.2rem; }
+    .content { padding: 16px 18px; }
+
+    .hint {
+      border-left: 4px solid var(--brand);
+      background: #ecfdf7;
+      color: #065f46;
+      border-radius: 10px;
+      padding: 10px 12px;
+      margin-bottom: 12px;
+      line-height: 1.7;
+    }
+
+    .grid { display: grid; gap: 10px; }
+    .g2 { grid-template-columns: repeat(auto-fit, minmax(300px,1fr)); }
+    .g3 { grid-template-columns: repeat(auto-fit, minmax(220px,1fr)); }
+    .g4 { grid-template-columns: repeat(auto-fit, minmax(180px,1fr)); }
+
+    .card {
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: #fff;
+      padding: 12px;
+    }
+
+    .card h4 { margin: 0 0 8px; color: var(--brand); }
+    p, li { color: var(--muted); line-height: 1.75; }
+
+    .tabs { display:flex; flex-wrap: wrap; gap: 8px; margin-bottom: 10px; }
+    .tab {
+      border: 1px solid #bfd6fa;
+      background: #f2f7ff;
+      color: #1d4ed8;
+      border-radius: 999px;
+      padding: 6px 12px;
+      cursor:pointer;
+      transition: .2s;
+    }
+    .tab:hover,.tab.active { background:#1d4ed8; color:#fff; border-color:#1d4ed8; }
+
+    .case-panel { display:none; }
+    .case-panel.active { display:block; animation: fade .25s; }
+    @keyframes fade { from {opacity:.2; transform: translateY(5px)} to {opacity:1; transform:none} }
+
+    .tag {
+      display:inline-block;
+      padding:2px 10px;
+      border-radius: 999px;
+      border: 1px solid #c2dafd;
+      background:#edf4ff;
+      color:#1d4ed8;
+      font-size: .82rem;
+      margin-right: 6px;
+      margin-bottom: 6px;
+    }
+
+    .metrics {
+      display:grid;
+      grid-template-columns: repeat(auto-fit, minmax(135px,1fr));
+      gap:8px;
+      margin-top:8px;
+    }
+
+    .metric {
+      border:1px solid var(--line);
+      border-radius:10px;
+      padding:8px;
+      background:#fcfdff;
+      font-size:.9rem;
+    }
+
+    .metric b { display:block; color:#0f172a; }
+
+    .img-grid {
+      display:grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px,1fr));
+      gap:8px;
+      margin-top:10px;
+    }
+
+    .img-tile {
+      position:relative;
+      overflow:hidden;
+      border-radius:12px;
+      border:1px solid var(--line);
+      cursor:pointer;
+      background:#f8fafc;
+      aspect-ratio: 4/3;
+    }
+
+    .img-tile img {
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      transition: transform .4s ease;
+      display:block;
+    }
+
+    .img-tile:hover img { transform: scale(1.06); }
+    .img-tile span {
+      position:absolute;
+      left:0; right:0; bottom:0;
+      padding:6px 8px;
+      background:linear-gradient(to top, rgba(2,6,23,.68), rgba(2,6,23,0));
+      color:#fff;
+      font-size:.78rem;
+    }
+
+    .input-grid {
+      display:grid;
+      grid-template-columns: repeat(auto-fit, minmax(235px,1fr));
+      gap:10px;
+      margin-bottom: 10px;
+    }
+
+    .control { border:1px solid var(--line); border-radius:12px; background:#f8fbff; padding:10px; }
+    .control label { display:flex; justify-content:space-between; color:#334155; font-size:.9rem; margin-bottom:6px; }
+    .control input,.control select{ width:100%; }
+
+    .result-grid {
+      display:grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px,1fr));
+      gap:10px;
+      margin-bottom:10px;
+    }
+
+    .res { border:1px solid var(--line); border-radius:12px; background:#fff; padding:10px; }
+    .res b { display:block; font-size:1.1rem; margin-bottom:3px; }
+
+    .status-ok{color:var(--ok)} .status-warn{color:var(--warn)} .status-bad{color:var(--bad)}
+
+    .canvas-grid {
+      display:grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px,1fr));
+      gap:10px;
+      margin-bottom:10px;
+    }
+
+    canvas { width:100%; height:220px; border:1px solid var(--line); border-radius:12px; background:linear-gradient(180deg,#fff,#f7fbff); }
+
+    .btns { display:flex; flex-wrap: wrap; gap:8px; }
+    .action {
+      border:1px solid #bed3f7;
+      background:#f2f7ff;
+      color:#1e3a8a;
+      border-radius:10px;
+      padding:8px 11px;
+      cursor:pointer;
+      transition:.2s;
+    }
+    .action:hover { background:#e6f0ff; }
+
+    .scroll { overflow:auto; }
+    table { width:100%; border-collapse: collapse; min-width: 900px; font-size:.93rem; }
+    th, td { border:1px solid var(--line); padding:8px; vertical-align:top; line-height:1.6; }
+    th { background:#f8fbff; text-align:left; }
+
+    .wall-card { position:relative; overflow:hidden; }
+    .score-pill {
+      position:absolute;
+      top:10px;
+      right:10px;
+      border:1px solid var(--line);
+      border-radius:999px;
+      padding:4px 8px;
+      background:#fff;
+      font-size:.8rem;
+    }
+
+    .wall-card svg { width:100%; height:180px; display:block; border:1px solid var(--line); border-radius:10px; background:#f9fbff; }
+
+    .reference-list li { margin-bottom:4px; }
+
+    .reveal { opacity:0; transform:translateY(10px); transition:.45s ease; }
+    .reveal.show { opacity:1; transform:none; }
+
+    .to-top {
+      position:fixed;
+      right:14px;
+      bottom:14px;
+      z-index:35;
+      border:none;
+      border-radius:999px;
+      width:42px;
+      height:42px;
+      cursor:pointer;
+      background:linear-gradient(120deg,#0f766e,#2563eb);
+      color:#fff;
+      box-shadow: var(--shadow);
+      opacity:0;
+      transform:translateY(8px);
+      transition:.25s;
+    }
+
+    .to-top.show { opacity:1; transform:none; }
+
+    .lightbox {
+      position:fixed;
+      inset:0;
+      background:rgba(2,6,23,.75);
+      display:none;
+      align-items:center;
+      justify-content:center;
+      z-index:50;
+      padding:18px;
+    }
+
+    .lightbox.active { display:flex; }
+
+    .lightbox img {
+      max-width:min(1200px,95vw);
+      max-height:85vh;
+      border-radius:12px;
+      border:1px solid rgba(255,255,255,.3);
+      box-shadow: 0 30px 60px rgba(0,0,0,.35);
+      background:#fff;
+    }
+
+    .lightbox button {
+      position:absolute;
+      top:14px;
+      right:14px;
+      border:none;
+      border-radius:8px;
+      padding:7px 10px;
+      cursor:pointer;
+      background:#fff;
+    }
+
+    .footnote { font-size:.86rem; color:#64748b; margin-top:8px; }
+    footer { text-align:center; padding:22px; color:#64748b; font-size:.92rem; }
+
+    @media (max-width: 980px) {
+      .layout { grid-template-columns:1fr; }
+      .side { position: static; }
+    }
   </style>
 </head>
 <body>
   <section class="hero">
     <div class="wrap">
-      <h1>龍科國小校舍規劃決策平台（工程概念評估版）</h1>
-      <p>這一版改為「可追溯計算 + 方案比較 + 視覺化輸出」：用公式與參數建立抗震、日照、通風、熱舒適的概念評估器，並提供圍牆美學方案矩陣，讓設計、教育、工程、社區四方更容易協作決策。</p>
+      <h1>龍科國小校舍規劃｜旗艦級設計策略中控台</h1>
+      <p>這版重點是「可參考性最大化」：每個案例提供完整圖像參考、設計參數、轉譯策略、工程與營運評估；同時強化 UI/UX 動畫、互動流程與會議輸出，讓它真正可作為規劃工具而非僅展示稿。</p>
       <div class="kpis">
-        <div class="kpi"><b data-count="8">0</b>全球案例策略</div>
+        <div class="kpi"><b data-count="8">0</b>國際案例完整卡</div>
+        <div class="kpi"><b data-count="24">0</b>案例參考圖片</div>
         <div class="kpi"><b data-count="4">0</b>工程評估模組</div>
-        <div class="kpi"><b data-count="3">0</b>圍牆設計原型</div>
-        <div class="kpi"><b data-count="114">0</b>學年度建校節點</div>
+        <div class="kpi"><b data-count="3">0</b>圍牆美學原型</div>
+        <div class="kpi"><b data-count="114">0</b>建校節點（學年度）</div>
       </div>
     </div>
   </section>
 
+  <div class="sticky-top-nav">
+    <div class="top-nav-inner">
+      <a class="pill-link" href="#overview">專案定位</a>
+      <a class="pill-link" href="#cases">八大案例圖文</a>
+      <a class="pill-link" href="#engine">工程評估器</a>
+      <a class="pill-link" href="#compare">A/B 比較</a>
+      <a class="pill-link" href="#wall">圍牆設計</a>
+      <a class="pill-link" href="#refs">參考與下一步</a>
+    </div>
+  </div>
+
   <main class="wrap layout">
-    <nav class="glass side">
-      <h3>導覽</h3>
+    <aside class="glass side">
+      <h3>章節導航</h3>
       <a href="#overview">專案摘要</a>
-      <a href="#cases">八大案例</a>
-      <a href="#engine">工程評估系統</a>
-      <a href="#compare">情境比較表</a>
-      <a href="#wall">圍牆美學方案</a>
-      <a href="#roadmap">分期落地</a>
-    </nav>
+      <a href="#cases">每案圖像與策略</a>
+      <a href="#engine">抗震/日照/風場/氣候</a>
+      <a href="#compare">方案比較</a>
+      <a href="#wall">圍牆設計提案</a>
+      <a href="#roadmap">落地路徑</a>
+      <a href="#refs">參考清單</a>
+    </aside>
 
     <div>
       <section id="overview" class="section glass reveal">
-        <header><h2>專案摘要：從「漂亮展示」升級為「可決策工具」</h2></header>
-        <div class="content grid g3">
-          <article class="card"><h4>1) 內容深度</h4><p>保留國際案例轉譯，同步加入在地工程評估欄位與評分門檻。</p></article>
-          <article class="card"><h4>2) 計算可追溯</h4><p>各模組有明確參數與公式（例如基底剪力、換氣量、日照效率、舒適指數）。</p></article>
-          <article class="card"><h4>3) 會議可用</h4><p>可一鍵輸出當前參數摘要，直接貼進簡報或會議紀錄。</p></article>
+        <header><h2>專案摘要：用「圖像 + 計算 + 策略」快速做對決策</h2></header>
+        <div class="content">
+          <p class="hint">此版本改善重點：① 每案例多圖參考；② UI/UX 操作更直覺（sticky 導覽、lightbox、一鍵比較）；③ 工程模組提供可追溯公式與參數；④ 圍牆設計不只美觀，加入安全、生態、維運評估。</p>
+          <div class="grid g4">
+            <article class="card"><h4>教育價值</h4><p>雙語 Hub、跨域實作、社區共學全都可落在空間配置上。</p></article>
+            <article class="card"><h4>工程價值</h4><p>前期快速篩選方案，減少後續設計反覆。</p></article>
+            <article class="card"><h4>溝通價值</h4><p>把複雜建築議題轉成視覺化與可比較指標。</p></article>
+            <article class="card"><h4>品牌價值</h4><p>建立龍科國小「科技 × 在地 × 永續」辨識。</p></article>
+          </div>
         </div>
       </section>
 
       <section id="cases" class="section glass reveal">
-        <header><h2>全球八大案例：快速比對與龍科轉譯</h2></header>
+        <header><h2>全球八大案例（每案多圖參考 + 轉譯指引）</h2></header>
         <div class="content">
           <div class="tabs" id="tabs"></div>
           <article class="case-panel active" data-case="0"></article>
@@ -154,15 +498,13 @@
       </section>
 
       <section id="engine" class="section glass reveal">
-        <header><h2>工程概念評估器：抗震 × 日照 × 風場 × 熱舒適（非玩具版）</h2></header>
+        <header><h2>工程評估中控台（前期決策版）</h2></header>
         <div class="content">
-          <p class="hint">採「參數化估算」：用可理解且可重現的工程概念式，提供方案早期篩選。後續可直接接 BIM / CFD / 結構分析做詳細驗證。</p>
-
           <div class="input-grid">
             <div class="control"><label>建築總重 W (kN) <span id="v-W">30000</span></label><input id="W" type="range" min="8000" max="60000" step="500" value="30000"></div>
             <div class="control"><label>設計反應譜 SDS <span id="v-SDS">0.60</span></label><input id="SDS" type="range" min="0.2" max="1.2" step="0.01" value="0.60"></div>
             <div class="control"><label>結構行為係數 R <span id="v-R">6.0</span></label><input id="R" type="range" min="2" max="8" step="0.1" value="6.0"></div>
-            <div class="control"><label>重要係數 Ie <span id="v-Ie">1.25</span></label><input id="Ie" type="range" min="1.0" max="1.5" step="0.01" value="1.25"></div>
+            <div class="control"><label>重要係數 Ie <span id="v-Ie">1.25</span></label><input id="Ie" type="range" min="1" max="1.5" step="0.01" value="1.25"></div>
 
             <div class="control"><label>窗牆比 WWR (%) <span id="v-wwr">42</span></label><input id="wwr" type="range" min="15" max="75" step="1" value="42"></div>
             <div class="control"><label>遮陽效率 (%) <span id="v-shade">63</span></label><input id="shade" type="range" min="20" max="95" step="1" value="63"></div>
@@ -170,282 +512,447 @@
             <div class="control"><label>開口有效面積 (m²) <span id="v-open">28</span></label><input id="open" type="range" min="5" max="80" step="1" value="28"></div>
 
             <div class="control"><label>室內體積 V (m³) <span id="v-vol">4200</span></label><input id="vol" type="range" min="1200" max="10000" step="100" value="4200"></div>
-            <div class="control"><label>室外平均溫度 (°C) <span id="v-temp">29</span></label><input id="temp" type="range" min="15" max="37" step="0.5" value="29"></div>
+            <div class="control"><label>室外溫度 (°C) <span id="v-temp">29</span></label><input id="temp" type="range" min="15" max="37" step="0.5" value="29"></div>
             <div class="control"><label>相對濕度 (%) <span id="v-hum">72</span></label><input id="hum" type="range" min="35" max="95" step="1" value="72"></div>
-            <div class="control">
-              <label>使用情境</label>
-              <select id="mode">
-                <option value="school">平日上課</option>
-                <option value="event">大型活動</option>
-                <option value="summer">暑期課程</option>
-              </select>
-            </div>
+            <div class="control"><label>使用情境</label><select id="mode"><option value="school">平日上課</option><option value="event">大型活動</option><option value="summer">暑期課程</option></select></div>
           </div>
 
           <div class="result-grid">
             <div class="res"><b id="r-cs">0.100</b>地震係數 Cs</div>
-            <div class="res"><b id="r-v">3000 kN</b>基底剪力 V = Cs×W</div>
-            <div class="res"><b id="r-day">71%</b>有效日照效率</div>
-            <div class="res"><b id="r-ach">10.3 ACH</b>自然換氣率</div>
-            <div class="res"><b id="r-comfort">63</b>熱舒適指數(0~100)</div>
+            <div class="res"><b id="r-v">3,000 kN</b>基底剪力 V</div>
+            <div class="res"><b id="r-day">70%</b>有效日照效率</div>
+            <div class="res"><b id="r-ach">10.0 ACH</b>自然換氣率</div>
+            <div class="res"><b id="r-comfort">62</b>熱舒適指數</div>
             <div class="res"><b id="r-grade" class="status-ok">B+</b>綜合等級</div>
           </div>
 
           <div class="canvas-grid">
             <div><p><b>抗震需求曲線</b></p><canvas id="c1" width="420" height="220"></canvas></div>
-            <div><p><b>月均日照利用率</b></p><canvas id="c2" width="420" height="220"></canvas></div>
-            <div><p><b>風場玫瑰與通風</b></p><canvas id="c3" width="420" height="220"></canvas></div>
-            <div><p><b>舒適度時序（概念）</b></p><canvas id="c4" width="420" height="220"></canvas></div>
+            <div><p><b>月均日照效率</b></p><canvas id="c2" width="420" height="220"></canvas></div>
+            <div><p><b>風場玫瑰圖</b></p><canvas id="c3" width="420" height="220"></canvas></div>
+            <div><p><b>熱舒適時序</b></p><canvas id="c4" width="420" height="220"></canvas></div>
           </div>
 
           <div class="btns">
-            <button class="action" id="saveA">儲存為方案 A</button>
-            <button class="action" id="saveB">儲存為方案 B</button>
-            <button class="action" id="exportTxt">匯出文字摘要</button>
+            <button class="action" id="saveA">儲存方案 A</button>
+            <button class="action" id="saveB">儲存方案 B</button>
+            <button class="action" id="exportTxt">匯出摘要</button>
           </div>
-          <p class="footnote">公式示例：Cs = SDS/(R/Ie)（上限截斷），V = Cs×W；ACH ≈ 3600×Cd×A×v/V（Cd=0.6）；舒適度以溫濕度偏差與風速修正建立規劃級指標。</p>
+          <p class="footnote">主要概念式：Cs = SDS/(R/Ie)（設上下限）；V = Cs×W；ACH ≈ 3600×Cd×A×v / V（Cd=0.6）。</p>
         </div>
       </section>
 
       <section id="compare" class="section glass reveal">
-        <header><h2>方案 A / B 比較（會議決策專用）</h2></header>
-        <div class="content table-wrap">
+        <header><h2>方案 A/B 比較表（可會議直接使用）</h2></header>
+        <div class="content scroll">
           <table>
             <thead><tr><th>指標</th><th>方案 A</th><th>方案 B</th><th>判讀建議</th></tr></thead>
-            <tbody id="compareBody">
-              <tr><td>地震係數 Cs</td><td>-</td><td>-</td><td>越低越好，但須符合安全係數。</td></tr>
-              <tr><td>基底剪力 V (kN)</td><td>-</td><td>-</td><td>反映結構需求強度，關聯成本與安全。</td></tr>
-              <tr><td>有效日照效率 (%)</td><td>-</td><td>-</td><td>建議 60~80%，避免眩光與過熱。</td></tr>
-              <tr><td>換氣率 ACH</td><td>-</td><td>-</td><td>教室宜 > 6 ACH，活動空間宜更高。</td></tr>
-              <tr><td>熱舒適指數</td><td>-</td><td>-</td><td>建議 > 60，可減少冷氣負荷。</td></tr>
-              <tr><td>綜合等級</td><td>-</td><td>-</td><td>優先選擇兼顧安全與營運效率者。</td></tr>
-            </tbody>
+            <tbody id="compareBody"></tbody>
           </table>
         </div>
       </section>
 
       <section id="wall" class="section glass reveal">
-        <header><h2>校園圍牆設計提案（美觀 × 安全 × 在地識別）</h2></header>
+        <header><h2>圍牆設計（更美觀、可識別、可維運）</h2></header>
         <div class="content grid g3">
           <article class="card wall-card">
-            <span class="score-pill">綜合 92/100</span>
-            <h4>方案 W1：客家織紋綠帶牆</h4>
-            <svg viewBox="0 0 320 170" xmlns="http://www.w3.org/2000/svg">
-              <rect width="320" height="170" fill="#f8fafc"/>
-              <rect y="105" width="320" height="65" fill="#d9f99d"/>
-              <rect x="0" y="60" width="320" height="45" fill="#e5e7eb"/>
-              <g stroke="#1f2937" stroke-width="1.2" opacity=".7">
-                <path d="M0 70 L320 70"/><path d="M0 80 L320 80"/><path d="M0 90 L320 90"/><path d="M0 100 L320 100"/>
-                <path d="M20 60 L20 105"/><path d="M60 60 L60 105"/><path d="M100 60 L100 105"/><path d="M140 60 L140 105"/>
-                <path d="M180 60 L180 105"/><path d="M220 60 L220 105"/><path d="M260 60 L260 105"/><path d="M300 60 L300 105"/>
-              </g>
-              <circle cx="45" cy="130" r="12" fill="#16a34a"/><circle cx="95" cy="122" r="11" fill="#22c55e"/><circle cx="150" cy="132" r="13" fill="#16a34a"/>
-              <circle cx="220" cy="124" r="12" fill="#22c55e"/><circle cx="280" cy="130" r="13" fill="#16a34a"/>
+            <span class="score-pill">92 / 100</span>
+            <h4>W1 客家織紋綠帶牆</h4>
+            <svg viewBox="0 0 320 180" xmlns="http://www.w3.org/2000/svg">
+              <rect width="320" height="180" fill="#f8fafc"/>
+              <rect x="0" y="62" width="320" height="52" fill="#e5e7eb"/>
+              <g stroke="#1f2937" stroke-width="1.2" opacity=".65"><path d="M0 72L320 72"/><path d="M0 84L320 84"/><path d="M0 96L320 96"/><path d="M0 108L320 108"/>
+              <path d="M20 62L20 114"/><path d="M60 62L60 114"/><path d="M100 62L100 114"/><path d="M140 62L140 114"/><path d="M180 62L180 114"/><path d="M220 62L220 114"/><path d="M260 62L260 114"/><path d="M300 62L300 114"/></g>
+              <rect x="0" y="114" width="320" height="66" fill="#d9f99d"/>
+              <circle cx="42" cy="136" r="12" fill="#16a34a"/><circle cx="92" cy="128" r="11" fill="#22c55e"/><circle cx="152" cy="138" r="13" fill="#16a34a"/><circle cx="228" cy="130" r="12" fill="#22c55e"/><circle cx="286" cy="138" r="13" fill="#16a34a"/>
             </svg>
-            <p>以客家織紋格柵轉譯在地文化，搭配前景灌木形成柔性邊界，兼顧通透與辨識。</p>
+            <p>文化辨識度高、視線通透、景觀友善，適合主校門與社區交界。</p>
           </article>
 
           <article class="card wall-card">
-            <span class="score-pill">綜合 88/100</span>
-            <h4>方案 W2：科技光柵互動牆</h4>
-            <svg viewBox="0 0 320 170" xmlns="http://www.w3.org/2000/svg">
-              <rect width="320" height="170" fill="#f8fafc"/>
-              <defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#0ea5e9"/><stop offset="1" stop-color="#6366f1"/></linearGradient></defs>
-              <rect y="55" width="320" height="58" fill="url(#g)" opacity=".2"/>
-              <g stroke="#2563eb" stroke-width="4" opacity=".65">
-                <line x1="10" y1="58" x2="10" y2="113"/><line x1="35" y1="58" x2="35" y2="113"/><line x1="60" y1="58" x2="60" y2="113"/>
-                <line x1="85" y1="58" x2="85" y2="113"/><line x1="110" y1="58" x2="110" y2="113"/><line x1="135" y1="58" x2="135" y2="113"/>
-                <line x1="160" y1="58" x2="160" y2="113"/><line x1="185" y1="58" x2="185" y2="113"/><line x1="210" y1="58" x2="210" y2="113"/>
-                <line x1="235" y1="58" x2="235" y2="113"/><line x1="260" y1="58" x2="260" y2="113"/><line x1="285" y1="58" x2="285" y2="113"/>
-              </g>
-              <rect y="113" width="320" height="57" fill="#dbeafe"/>
+            <span class="score-pill">88 / 100</span>
+            <h4>W2 科技光柵互動牆</h4>
+            <svg viewBox="0 0 320 180" xmlns="http://www.w3.org/2000/svg">
+              <rect width="320" height="180" fill="#f8fafc"/>
+              <defs><linearGradient id="gg" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#0ea5e9"/><stop offset="1" stop-color="#6366f1"/></linearGradient></defs>
+              <rect y="58" width="320" height="60" fill="url(#gg)" opacity=".2"/>
+              <g stroke="#2563eb" stroke-width="4" opacity=".65"><line x1="10" y1="58" x2="10" y2="118"/><line x1="35" y1="58" x2="35" y2="118"/><line x1="60" y1="58" x2="60" y2="118"/><line x1="85" y1="58" x2="85" y2="118"/><line x1="110" y1="58" x2="110" y2="118"/><line x1="135" y1="58" x2="135" y2="118"/><line x1="160" y1="58" x2="160" y2="118"/><line x1="185" y1="58" x2="185" y2="118"/><line x1="210" y1="58" x2="210" y2="118"/><line x1="235" y1="58" x2="235" y2="118"/><line x1="260" y1="58" x2="260" y2="118"/><line x1="285" y1="58" x2="285" y2="118"/></g>
+              <rect y="118" width="320" height="62" fill="#dbeafe"/>
             </svg>
-            <p>適合園區門面：夜間可整合低耗能光環境，呈現科技感與校園品牌識別。</p>
+            <p>科技園區界面表現強，可搭配低耗能夜間導光與校名識別系統。</p>
           </article>
 
           <article class="card wall-card">
-            <span class="score-pill">綜合 94/100</span>
-            <h4>方案 W3：生態滯洪透水牆</h4>
-            <svg viewBox="0 0 320 170" xmlns="http://www.w3.org/2000/svg">
-              <rect width="320" height="170" fill="#f8fafc"/>
-              <rect y="65" width="320" height="30" fill="#d1fae5"/>
-              <g stroke="#059669" stroke-width="2" opacity=".7">
-                <path d="M0 80 C40 70,80 90,120 80 C160 70,200 90,240 80 C280 70,320 90,360 80"/>
-                <path d="M0 88 C40 78,80 98,120 88 C160 78,200 98,240 88 C280 78,320 98,360 88"/>
-              </g>
-              <rect y="95" width="320" height="75" fill="#bbf7d0"/>
-              <g fill="#16a34a"><circle cx="30" cy="115" r="7"/><circle cx="70" cy="127" r="8"/><circle cx="110" cy="118" r="7"/><circle cx="160" cy="126" r="8"/><circle cx="205" cy="119" r="7"/><circle cx="250" cy="127" r="8"/><circle cx="290" cy="118" r="7"/></g>
+            <span class="score-pill">94 / 100</span>
+            <h4>W3 生態滯洪透水牆</h4>
+            <svg viewBox="0 0 320 180" xmlns="http://www.w3.org/2000/svg">
+              <rect width="320" height="180" fill="#f8fafc"/>
+              <rect y="66" width="320" height="30" fill="#d1fae5"/>
+              <g stroke="#059669" stroke-width="2" opacity=".7"><path d="M0 81 C40 71,80 91,120 81 C160 71,200 91,240 81 C280 71,320 91,360 81"/><path d="M0 89 C40 79,80 99,120 89 C160 79,200 99,240 89 C280 79,320 99,360 89"/></g>
+              <rect y="96" width="320" height="84" fill="#bbf7d0"/>
+              <g fill="#16a34a"><circle cx="30" cy="118" r="7"/><circle cx="70" cy="130" r="8"/><circle cx="110" cy="121" r="7"/><circle cx="160" cy="129" r="8"/><circle cx="205" cy="122" r="7"/><circle cx="250" cy="130" r="8"/><circle cx="290" cy="121" r="7"/></g>
             </svg>
-            <p>將圍牆與雨水管理結合，形成「可滯洪、可教學、可景觀化」的低碳校園邊界。</p>
+            <p>把雨水管理、生態教學與邊界安全整合，最適合長期永續形象。</p>
           </article>
         </div>
       </section>
 
       <section id="roadmap" class="section glass reveal">
-        <header><h2>分期落地建議（含工程資料軌）</h2></header>
+        <header><h2>落地路線（含資料軌）</h2></header>
         <div class="content grid g3">
-          <article class="card"><h4>Phase A｜前期設計</h4><ul><li>確認校舍分區與交通仿真。</li><li>建立參數化評估模板。</li><li>完成圍牆原型公民參與票選。</li></ul></article>
-          <article class="card"><h4>Phase B｜工程執行</h4><ul><li>結構/機電/BIM 協同出圖。</li><li>日照、風場、熱環境細部驗證。</li><li>社區共享動線與門禁系統落地。</li></ul></article>
-          <article class="card"><h4>Phase C｜營運優化</h4><ul><li>導入 IoT 能源與環境監測。</li><li>以實測數據修正教學場景配置。</li><li>逐年更新設施維運與安全指標。</li></ul></article>
+          <article class="card"><h4>Phase A 前期（0-12月）</h4><ul><li>策略定義與概念評估。</li><li>案例參考圖與需求清單鎖定。</li><li>社區工作坊與圍牆票選。</li></ul></article>
+          <article class="card"><h4>Phase B 設計（12-24月）</h4><ul><li>BIM/CFD/結構模型建置。</li><li>材料、立面、動線優化。</li><li>建照與發包規格整合。</li></ul></article>
+          <article class="card"><h4>Phase C 運營（24月+）</h4><ul><li>IoT 環境監測上線。</li><li>年度使用回饋滾動優化。</li><li>形成可複製校舍模板。</li></ul></article>
+        </div>
+      </section>
+
+      <section id="refs" class="section glass reveal">
+        <header><h2>參考與下一步</h2></header>
+        <div class="content grid g2">
+          <article class="card">
+            <h4>可直接進一步補強的資料</h4>
+            <ul class="reference-list">
+              <li>基地實測風玫瑰與季節風向資料（至少一年）。</li>
+              <li>日照遮蔽分析（冬至、夏至、春秋分）。</li>
+              <li>教室/公共空間的熱舒適實測（PMV/PPD）。</li>
+              <li>震後功能維持與避難動線演練腳本。</li>
+            </ul>
+          </article>
+          <article class="card">
+            <h4>建議工作包</h4>
+            <ul class="reference-list">
+              <li>WP1：教育需求與課表型態轉譯</li>
+              <li>WP2：建築概念與圍牆設計原型</li>
+              <li>WP3：工程性能（結構/日照/風場/熱）</li>
+              <li>WP4：社區共享營運與維管模型</li>
+            </ul>
+          </article>
         </div>
       </section>
     </div>
   </main>
 
-  <footer>龍科國小規劃平台｜此版本為「前期工程決策」用途，最終仍需專業簽證與法規審查。</footer>
+  <button id="toTop" class="to-top" aria-label="回到頂部">↑</button>
+
+  <div id="lightbox" class="lightbox" aria-hidden="true">
+    <button id="closeLightbox">關閉</button>
+    <img id="lightboxImg" alt="案例參考圖" />
+  </div>
+
+  <footer>龍科國小校舍規劃平台｜本頁為前期策略與概念評估用途，最終需依法規與專業簽證執行。</footer>
 
   <script>
     const caseData = [
-      {title:'大阪希望之丘中小學',tags:['地景延伸','閱讀坡道','碎片化量體'],concept:'以消去建築降低壓迫感，打造村落型校園。',highlights:['階梯閱讀場域','開放書架節點','室內外連續動線'],trans:'可轉譯為雙語展演階梯與閱讀客廳。'},
-      {title:'Amanenomori 幼兒園',tags:['環狀動線','食育可視化','能源教材化'],concept:'循環動線結合遊戲與探索。',highlights:['3D 遊戲移動路徑','透明廚房食育','地熱/雨水/太陽能展示'],trans:'低年級區導入圓角與可視化安全管理。'},
-      {title:'昭和學院附小西樓',tags:['CLT','碳中和','設備可讀'],concept:'建築本體即學習內容。',highlights:['無梁高淨高','可開放教室','科技教學設備整合'],trans:'木質與智慧設備融合，提升學習舒適度。'},
-      {title:'橫濱國際學校 YIS',tags:['Community Hub','Every Space Learning','可寫家具'],concept:'行政與教學邊界變薄，處處可學。',highlights:['Lily Pads 中庭平台','跨域互動節點','文化美學並存'],trans:'建立龍科雙語社群核心。'},
-      {title:'高雄光武國小體操館',tags:['智慧場館','分層動線','校社共用'],concept:'運動專長帶動校園識別與社區共享。',highlights:['地下動線分離','ICT 管理','高彈性場館'],trans:'可套用於園區接送與共享設施策略。'},
-      {title:'新竹陽光國小',tags:['模組家具','物件定義空間','幾何學習'],concept:'空間由活動驅動。',highlights:['可重組教室','數學尺度遊戲','走廊轉為學習節點'],trans:'適合雙語劇場與分組學習切換。'},
-      {title:'新竹關埔國小',tags:['微地形','通風塔','無跑道策略'],concept:'把自然地景變成學習媒介。',highlights:['樹冠單元布局','草地與坡道移動','風環境優化'],trans:'導入動靜分區與自然語境教學。'},
-      {title:'東京巢鴨北中學',tags:['垂直校園','屋頂機能','社交核心梯'],concept:'高密度基地的立體解法。',highlights:['屋頂操場/泳池','X 型交流梯','挑空知識中心'],trans:'基地受限擴建時可採空中地景方案。'}
+      {
+        title: '專案一｜大阪希望之丘中小學（KKAA）',
+        tags: ['地景延伸','碎片化量體','閱讀坡道'],
+        concept: '以「消去建築」拆解量體，讓校舍與周邊住宅尺度共存。',
+        highlights: ['階梯閱讀場域取代單點圖書館','走廊轉角皆為知識節點','溫暖木質 + 大面開窗連結室外'],
+        translation: '龍科可在雙語推動辦公室旁設置「閱讀演講坡」，兼具英語展演與社群交流。',
+        metrics: {採光:'高',通風:'中高',社區融入:'高',施工複雜度:'中'},
+        images: [
+          {src:'https://source.unsplash.com/1200x900/?japan,school,architecture,wood', cap:'校園外觀尺度與木質語彙'},
+          {src:'https://source.unsplash.com/1200x900/?library,steps,interior,school', cap:'階梯閱讀與共享學習空間'},
+          {src:'https://source.unsplash.com/1200x900/?corridor,glass,school,design', cap:'透明界面與連續動線'}
+        ]
+      },
+      {
+        title: '專案二｜Amanenomori 幼兒園（Aisaka）',
+        tags: ['環狀動線','食育可視化','能源教材化'],
+        concept: '透過環狀結構形成安全探索路徑，移動即學習。',
+        highlights: ['坡道 + 橋梁 + 滑梯的 3D 路徑','低地坪透明廚房增強食育','雨水回收與太陽能可視化'],
+        translation: '低年級可導入圓角安全與開放式管理視角，降低監控盲區。',
+        metrics: {採光:'高',通風:'高',社區融入:'中',施工複雜度:'中高'},
+        images: [
+          {src:'https://source.unsplash.com/1200x900/?kindergarten,architecture,playground', cap:'幼兒動線與環形遊戲概念'},
+          {src:'https://source.unsplash.com/1200x900/?kids,school,interior,wood', cap:'柔性學習空間與安全尺度'},
+          {src:'https://source.unsplash.com/1200x900/?solar,roof,school,green', cap:'能源與屋頂生態整合'}
+        ]
+      },
+      {
+        title: '專案三｜昭和學院附小西樓（日建設計）',
+        tags: ['CLT','碳中和','建築即教材'],
+        concept: '結構與機電公開展示，讓空間成為永續教育載體。',
+        highlights: ['無梁高淨高空間','可展開教室連接中庭','設備可讀化設計'],
+        translation: '龍科可採「木構感 + 智慧設備」平衡科技冷感。',
+        metrics: {採光:'高',通風:'中',社區融入:'中高',施工複雜度:'高'},
+        images: [
+          {src:'https://source.unsplash.com/1200x900/?timber,school,architecture', cap:'木構語彙與溫潤學習環境'},
+          {src:'https://source.unsplash.com/1200x900/?classroom,sliding,door,school', cap:'可開放教室與中庭連動'},
+          {src:'https://source.unsplash.com/1200x900/?sustainable,building,interior', cap:'永續材料與設備展示'}
+        ]
+      },
+      {
+        title: '專案四｜橫濱國際學校 YIS（KKAA）',
+        tags: ['Community Hub','Every Space Learning','Lily Pads'],
+        concept: '把行政與教學邊界變薄，創造整體式學習社群。',
+        highlights: ['Lily Pads 多功能平台','可寫家具降低犯錯焦慮','文化空間與國際課程融合'],
+        translation: '龍科雙語中心可採 Hub 化配置，提升自然語境接觸。',
+        metrics: {採光:'高',通風:'中高',社區融入:'高',施工複雜度:'中高'},
+        images: [
+          {src:'https://source.unsplash.com/1200x900/?international,school,architecture', cap:'國際校園公共核心'},
+          {src:'https://source.unsplash.com/1200x900/?atrium,wood,stairs,school', cap:'中庭平台與非正式教學'},
+          {src:'https://source.unsplash.com/1200x900/?students,collaboration,space', cap:'社群式合作學習場景'}
+        ]
+      },
+      {
+        title: '專案五｜高雄光武國小體操館',
+        tags: ['識別美學','人車分流','智慧場館'],
+        concept: '專長導向建築識別，兼顧校安與社區共享。',
+        highlights: ['地下停車與校園動線分層','ICT 管理提高營運效率','挑高空間支援多元活動'],
+        translation: '可轉化為龍科接送與園區共用交通界面方案。',
+        metrics: {採光:'中',通風:'中',社區融入:'高',施工複雜度:'中高'},
+        images: [
+          {src:'https://source.unsplash.com/1200x900/?gymnasium,school,architecture', cap:'體育場館外觀與城市界面'},
+          {src:'https://source.unsplash.com/1200x900/?sports,hall,interior', cap:'挑高彈性多功能空間'},
+          {src:'https://source.unsplash.com/1200x900/?parking,urban,access', cap:'交通接駁與分流概念'}
+        ]
+      },
+      {
+        title: '專案六｜新竹陽光國小（田中央）',
+        tags: ['模組家具','物件定義空間','幾何學習'],
+        concept: '透過可移動家具讓空間隨教學活動快速重構。',
+        highlights: ['固定基座 + 移動家具','節點化走廊變學習區','數學尺度內化'],
+        translation: '龍科雙語情境教學可快速切換劇場/辯論/分組。',
+        metrics: {採光:'中高',通風:'中',社區融入:'中高',施工複雜度:'中'},
+        images: [
+          {src:'https://source.unsplash.com/1200x900/?flexible,classroom,furniture', cap:'可變家具與彈性教室'},
+          {src:'https://source.unsplash.com/1200x900/?education,design,modular', cap:'模組化學習場景'},
+          {src:'https://source.unsplash.com/1200x900/?students,discussion,classroom', cap:'分組討論與節點活化'}
+        ]
+      },
+      {
+        title: '專案七｜新竹關埔國小（田中央）',
+        tags: ['微地形','通風塔','自然學習'],
+        concept: '去制式跑道，改以地景化移動路徑串接學習。',
+        highlights: ['樹冠尺度教室單元','草地與起伏廊道','通風策略回應在地氣候'],
+        translation: '龍科可利用地坪高差區分動靜學習區。',
+        metrics: {採光:'高',通風:'高',社區融入:'高',施工複雜度:'中高'},
+        images: [
+          {src:'https://source.unsplash.com/1200x900/?landscape,school,campus', cap:'地景化校園與草坡移動'},
+          {src:'https://source.unsplash.com/1200x900/?playground,nature,children', cap:'自然遊戲與學習連結'},
+          {src:'https://source.unsplash.com/1200x900/?wind,tower,architecture', cap:'風環境策略意象'}
+        ]
+      },
+      {
+        title: '專案八｜東京巢鴨北中學（Coelacanth K&H）',
+        tags: ['垂直校園','屋頂機能','社交核心梯'],
+        concept: '在高密度基地中，透過垂直疊合擴大公共性。',
+        highlights: ['屋頂操場與泳池','X 型社交梯作核心廣場','挑空 LIC 聚合學習'],
+        translation: '若龍科基地受限，垂直社交與屋頂機能是高效策略。',
+        metrics: {採光:'中高',通風:'中',社區融入:'中',施工複雜度:'高'},
+        images: [
+          {src:'https://source.unsplash.com/1200x900/?urban,school,building', cap:'高密度都市校園外觀'},
+          {src:'https://source.unsplash.com/1200x900/?rooftop,sports,school', cap:'屋頂操場與立體活動層'},
+          {src:'https://source.unsplash.com/1200x900/?stairs,atrium,students', cap:'社交核心梯與跨層互動'}
+        ]
+      }
     ];
 
     const tabs = document.getElementById('tabs');
     const panels = [...document.querySelectorAll('.case-panel')];
-    caseData.forEach((c,i)=>{
-      const b=document.createElement('button'); b.className=`tab ${i===0?'active':''}`; b.textContent=`案例 ${i+1}`; b.onclick=()=>activate(i); tabs.appendChild(b);
-      panels[i].innerHTML = `<div class='grid g3'><article class='card'><h4>${c.title}</h4>${c.tags.map(t=>`<span class='tag'>${t}</span>`).join('')}<p><b>理念：</b>${c.concept}</p></article><article class='card'><h4>空間亮點</h4><ul>${c.highlights.map(h=>`<li>${h}</li>`).join('')}</ul></article><article class='card'><h4>龍科轉譯</h4><p>${c.trans}</p></article></div>`;
+
+    caseData.forEach((c, i) => {
+      const btn = document.createElement('button');
+      btn.className = `tab ${i===0?'active':''}`;
+      btn.textContent = `案例 ${i+1}`;
+      btn.addEventListener('click', () => activateCase(i));
+      tabs.appendChild(btn);
+
+      const metricsHtml = Object.entries(c.metrics).map(([k,v]) => `<div class='metric'><b>${k}</b>${v}</div>`).join('');
+      const imagesHtml = c.images.map(img => `<figure class='img-tile' data-src='${img.src}'><img loading='lazy' src='${img.src}' alt='${c.title} - ${img.cap}' /><span>${img.cap}</span></figure>`).join('');
+
+      panels[i].innerHTML = `
+        <div class='grid g2'>
+          <article class='card'>
+            <h4>${c.title}</h4>
+            ${c.tags.map(t=>`<span class='tag'>${t}</span>`).join('')}
+            <p><b>設計理念：</b>${c.concept}</p>
+            <p><b>空間亮點：</b></p>
+            <ul>${c.highlights.map(h=>`<li>${h}</li>`).join('')}</ul>
+            <p><b>龍科轉譯：</b>${c.translation}</p>
+            <div class='metrics'>${metricsHtml}</div>
+          </article>
+          <article class='card'>
+            <h4>參考圖片（點擊可放大）</h4>
+            <div class='img-grid'>${imagesHtml}</div>
+          </article>
+        </div>
+      `;
     });
-    function activate(i){document.querySelectorAll('.tab').forEach((t,idx)=>t.classList.toggle('active',idx===i));panels.forEach((p,idx)=>p.classList.toggle('active',idx===i));}
 
-    document.querySelectorAll('[data-count]').forEach(el=>{const target=+el.dataset.count;let cur=0;const step=Math.max(1,Math.round(target/45));const t=setInterval(()=>{cur=Math.min(target,cur+step);el.textContent=cur.toLocaleString();if(cur===target)clearInterval(t)},24)});
-    const io=new IntersectionObserver(es=>es.forEach(e=>e.isIntersecting&&e.target.classList.add('show')),{threshold:.1});
-    document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+    function activateCase(i){
+      document.querySelectorAll('.tab').forEach((t, idx) => t.classList.toggle('active', idx===i));
+      panels.forEach((p, idx) => p.classList.toggle('active', idx===i));
+    }
 
-    // --- Engineering evaluation core ---
-    const ids=['W','SDS','R','Ie','wwr','shade','wind','open','vol','temp','hum'];
-    const mode=document.getElementById('mode');
-    ids.forEach(id=>document.getElementById(id).addEventListener('input',update));
-    mode.addEventListener('change',update);
+    document.querySelectorAll('[data-count]').forEach(el => {
+      const target = Number(el.dataset.count);
+      let cur = 0;
+      const step = Math.max(1, Math.round(target/40));
+      const t = setInterval(() => {
+        cur = Math.min(target, cur + step);
+        el.textContent = cur.toLocaleString();
+        if (cur === target) clearInterval(t);
+      }, 24);
+    });
 
-    let scenarioA=null, scenarioB=null;
+    const io = new IntersectionObserver(entries => entries.forEach(e => e.isIntersecting && e.target.classList.add('show')), {threshold: .1});
+    document.querySelectorAll('.reveal').forEach(el => io.observe(el));
 
-    function clamp(x,min,max){return Math.max(min,Math.min(max,x));}
-    function grade(score){return score>=85?'A':score>=75?'A-':score>=65?'B+':score>=55?'B':'C';}
-    function gradeClass(g){return g.startsWith('A')?'status-ok':g.startsWith('B')?'status-warn':'status-bad';}
+    // Lightbox
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = document.getElementById('lightboxImg');
+    const closeLightbox = document.getElementById('closeLightbox');
+
+    document.addEventListener('click', (e) => {
+      const tile = e.target.closest('.img-tile');
+      if (tile) {
+        lightboxImg.src = tile.dataset.src;
+        lightbox.classList.add('active');
+        lightbox.setAttribute('aria-hidden', 'false');
+      }
+      if (e.target === lightbox) closeLb();
+    });
+
+    function closeLb(){
+      lightbox.classList.remove('active');
+      lightbox.setAttribute('aria-hidden', 'true');
+      lightboxImg.src = '';
+    }
+
+    closeLightbox.addEventListener('click', closeLb);
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeLb(); });
+
+    // Engineering evaluator
+    const ids = ['W','SDS','R','Ie','wwr','shade','wind','open','vol','temp','hum'];
+    const modeEl = document.getElementById('mode');
+    ids.forEach(id => document.getElementById(id).addEventListener('input', update));
+    modeEl.addEventListener('change', update);
+
+    const compareBody = document.getElementById('compareBody');
+    let scenarioA = null, scenarioB = null;
+
+    function clamp(x,min,max){ return Math.max(min, Math.min(max, x)); }
+    function grade(score){ return score>=85?'A':score>=75?'A-':score>=65?'B+':score>=55?'B':'C'; }
+    function gradeClass(g){ return g.startsWith('A')?'status-ok':g.startsWith('B')?'status-warn':'status-bad'; }
 
     function calc(){
-      const p={}; ids.forEach(id=>p[id]=+document.getElementById(id).value); p.mode=mode.value;
+      const p = {}; ids.forEach(id => p[id] = +document.getElementById(id).value); p.mode = modeEl.value;
 
-      // Seismic (conceptual code-like estimate)
       let Cs = p.SDS / (p.R / p.Ie);
-      Cs = clamp(Cs,0.05,0.35);
+      Cs = clamp(Cs, .05, .35);
       const V = Cs * p.W;
 
-      // Daylight efficiency proxy: balanced by WWR and shading
-      let daylight = 45 + (p.wwr-20)*0.9 - (p.shade-20)*0.35;
-      daylight = clamp(daylight,30,88);
+      let daylight = 45 + (p.wwr-20)*.9 - (p.shade-20)*.35;
+      daylight = clamp(daylight, 30, 88);
 
-      // Ventilation ACH (Q = Cd*A*v, ACH = 3600Q/Vol)
-      const Cd = 0.6;
-      let modeFactor = p.mode==='event'?0.9:(p.mode==='summer'?1.1:1.0);
-      const Q = Cd * p.open * p.wind * modeFactor; // m3/s
-      const ACH = clamp((3600*Q)/p.vol,0.5,25);
+      const Cd = .6;
+      const modeFactor = p.mode==='event'? .9 : (p.mode==='summer'?1.1:1.0);
+      const Q = Cd * p.open * p.wind * modeFactor;
+      const ACH = clamp((3600 * Q) / p.vol, .5, 25);
 
-      // Comfort proxy index
-      let comfort = 100 - Math.abs(p.temp-26)*4.2 - Math.abs(p.hum-60)*0.62 + Math.min(ACH,12)*1.8;
-      if(p.mode==='event') comfort-=4;
-      comfort = clamp(comfort,20,95);
+      let comfort = 100 - Math.abs(p.temp-26)*4.2 - Math.abs(p.hum-60)*.62 + Math.min(ACH,12)*1.8;
+      if (p.mode==='event') comfort -= 4;
+      comfort = clamp(comfort, 20, 95);
 
-      // Composite score
-      const seismicScore = clamp(100 - ((Cs-0.05)/(0.35-0.05))*85,10,95);
+      const seismicScore = clamp(100 - ((Cs-.05)/(.35-.05))*85, 10, 95);
       const dayScore = 100 - Math.abs(daylight-68)*1.6;
-      const achScore = clamp((ACH/12)*100,10,95);
-      const score = Math.round((seismicScore*0.36 + dayScore*0.24 + achScore*0.2 + comfort*0.2));
+      const achScore = clamp((ACH/12)*100, 10, 95);
+      const score = Math.round(seismicScore*.36 + dayScore*.24 + achScore*.2 + comfort*.2);
       const g = grade(score);
 
       return {p,Cs,V,daylight,ACH,comfort,score,g};
     }
 
-    function setText(id,val){document.getElementById(id).textContent=val;}
+    function setText(id, val){ document.getElementById(id).textContent = val; }
 
     function updateCompare(){
-      const body=document.getElementById('compareBody');
-      const rows=[
-        ['地震係數 Cs', scenarioA?.Cs?.toFixed(3)??'-', scenarioB?.Cs?.toFixed(3)??'-','越低越好，但須符合安全係數。'],
-        ['基底剪力 V (kN)', scenarioA?Math.round(scenarioA.V):'-', scenarioB?Math.round(scenarioB.V):'-','反映結構需求強度，關聯成本與安全。'],
-        ['有效日照效率 (%)', scenarioA?Math.round(scenarioA.daylight):'-', scenarioB?Math.round(scenarioB.daylight):'-','建議 60~80%，避免眩光與過熱。'],
-        ['換氣率 ACH', scenarioA?scenarioA.ACH.toFixed(1):'-', scenarioB?scenarioB.ACH.toFixed(1):'-','教室宜 > 6 ACH，活動空間宜更高。'],
-        ['熱舒適指數', scenarioA?Math.round(scenarioA.comfort):'-', scenarioB?Math.round(scenarioB.comfort):'-','建議 > 60，可減少冷氣負荷。'],
-        ['綜合等級', scenarioA?.g??'-', scenarioB?.g??'-','優先選擇兼顧安全與營運效率者。']
+      const rows = [
+        ['地震係數 Cs', scenarioA?.Cs?.toFixed(3)??'-', scenarioB?.Cs?.toFixed(3)??'-', '越低越好，但須符合法規與安全目標'],
+        ['基底剪力 V (kN)', scenarioA?Math.round(scenarioA.V):'-', scenarioB?Math.round(scenarioB.V):'-', '反映結構需求與成本敏感度'],
+        ['有效日照效率 (%)', scenarioA?Math.round(scenarioA.daylight):'-', scenarioB?Math.round(scenarioB.daylight):'-', '建議 60~80%，平衡眩光與節能'],
+        ['換氣率 ACH', scenarioA?scenarioA.ACH.toFixed(1):'-', scenarioB?scenarioB.ACH.toFixed(1):'-', '一般教室建議 > 6 ACH'],
+        ['熱舒適指數', scenarioA?Math.round(scenarioA.comfort):'-', scenarioB?Math.round(scenarioB.comfort):'-', '建議 > 60，減輕空調負荷'],
+        ['綜合等級', scenarioA?.g??'-', scenarioB?.g??'-', '優先考慮兼顧安全、舒適、營運效率方案']
       ];
-      body.innerHTML = rows.map(r=>`<tr><td>${r[0]}</td><td>${r[1]}</td><td>${r[2]}</td><td>${r[3]}</td></tr>`).join('');
+      compareBody.innerHTML = rows.map(r => `<tr><td>${r[0]}</td><td>${r[1]}</td><td>${r[2]}</td><td>${r[3]}</td></tr>`).join('');
     }
 
-    // Charts
-    function draw(ctx,cb){ctx.clearRect(0,0,ctx.canvas.width,ctx.canvas.height);cb(ctx,ctx.canvas.width,ctx.canvas.height)}
-    function line(ctx,pts,color){ctx.beginPath();pts.forEach((p,i)=>i?ctx.lineTo(p[0],p[1]):ctx.moveTo(p[0],p[1]));ctx.strokeStyle=color;ctx.lineWidth=2;ctx.stroke();}
+    function draw(ctx, cb){ ctx.clearRect(0,0,ctx.canvas.width,ctx.canvas.height); cb(ctx, ctx.canvas.width, ctx.canvas.height); }
+    function line(ctx, pts, color){ ctx.beginPath(); pts.forEach((p,i)=>i?ctx.lineTo(p[0],p[1]):ctx.moveTo(p[0],p[1])); ctx.strokeStyle=color; ctx.lineWidth=2; ctx.stroke(); }
 
     function chartSeismic(Cs){
-      const c=document.getElementById('c1').getContext('2d');
-      draw(c,(ctx,w,h)=>{
-        ctx.strokeStyle='#e2e8f0'; for(let i=1;i<5;i++){ctx.beginPath();ctx.moveTo(30,i*h/5);ctx.lineTo(w-10,i*h/5);ctx.stroke();}
-        const amp=((Cs-0.05)/(0.30))*80+10; const pts=[];
-        for(let x=30;x<w-10;x+=5){const t=(x-30)/28;pts.push([x,h/2+Math.sin(t*2.8)*amp*Math.exp(-t/8)]);} line(ctx,pts,'#7c3aed');
-        ctx.fillStyle='#334155'; ctx.fillText(`Cs=${Cs.toFixed(3)}（曲線振幅代表需求）`,34,20);
+      const c = document.getElementById('c1').getContext('2d');
+      draw(c, (ctx,w,h) => {
+        ctx.strokeStyle='#e2e8f0'; for(let i=1;i<5;i++){ctx.beginPath(); ctx.moveTo(30,i*h/5); ctx.lineTo(w-10,i*h/5); ctx.stroke();}
+        const amp = ((Cs-.05)/.30)*80 + 10;
+        const pts=[]; for(let x=30;x<w-10;x+=5){const t=(x-30)/28; pts.push([x,h/2 + Math.sin(t*2.8)*amp*Math.exp(-t/8)]);} line(ctx, pts, '#7c3aed');
+        ctx.fillStyle='#334155'; ctx.fillText(`Cs=${Cs.toFixed(3)}（振幅代表需求）`, 34, 20);
       });
     }
 
-    function chartDay(day){
-      const c=document.getElementById('c2').getContext('2d');
-      const monthly=[0.78,0.8,0.83,0.86,0.88,0.9,0.88,0.86,0.83,0.8,0.77,0.75].map(v=>v*day/0.75);
-      draw(c,(ctx,w,h)=>{
-        ctx.strokeStyle='#e2e8f0'; ctx.beginPath();ctx.moveTo(30,h-26);ctx.lineTo(w-10,h-26);ctx.stroke();
-        const pts=monthly.map((v,i)=>[32+i*(w-56)/11,h-30-v*120]); line(ctx,pts,'#f59e0b');
-        ctx.fillStyle='#334155';ctx.fillText(`平均效率 ${Math.round(day)}%`,34,20);
+    function chartDay(dayRatio){
+      const c = document.getElementById('c2').getContext('2d');
+      const monthly=[0.78,0.8,0.83,0.86,0.88,0.9,0.88,0.86,0.83,0.8,0.77,0.75].map(v=>v*dayRatio/.75);
+      draw(c, (ctx,w,h) => {
+        ctx.strokeStyle='#e2e8f0'; ctx.beginPath(); ctx.moveTo(30,h-26); ctx.lineTo(w-10,h-26); ctx.stroke();
+        const pts=monthly.map((v,i)=>[32+i*(w-56)/11, h-30-v*120]); line(ctx, pts, '#f59e0b');
+        ctx.fillStyle='#334155'; ctx.fillText(`平均效率 ${Math.round(dayRatio*100)}%`,34,20);
       });
     }
 
     function chartWind(wind,ACH){
-      const c=document.getElementById('c3').getContext('2d');
-      draw(c,(ctx,w,h)=>{
-        const cx=w/2,cy=h/2+8;ctx.strokeStyle='#e2e8f0';[24,46,68].forEach(r=>{ctx.beginPath();ctx.arc(cx,cy,r,0,Math.PI*2);ctx.stroke();});
-        for(let i=0;i<8;i++){
-          const a=i*Math.PI/4; const len=18+((Math.sin(i+wind)+1)/2)*(wind*7); ctx.beginPath();ctx.moveTo(cx,cy);ctx.lineTo(cx+Math.cos(a)*len,cy+Math.sin(a)*len);ctx.strokeStyle='#2563eb';ctx.lineWidth=3;ctx.stroke();
-        }
-        ctx.fillStyle='#334155';ctx.fillText(`風速 ${wind.toFixed(1)} m/s｜ACH ${ACH.toFixed(1)}`,18,20);
+      const c = document.getElementById('c3').getContext('2d');
+      draw(c, (ctx,w,h) => {
+        const cx=w/2, cy=h/2+8;
+        ctx.strokeStyle='#e2e8f0'; [24,46,68].forEach(r=>{ctx.beginPath(); ctx.arc(cx,cy,r,0,Math.PI*2); ctx.stroke();});
+        for(let i=0;i<8;i++){const a=i*Math.PI/4; const len=18+((Math.sin(i+wind)+1)/2)*(wind*7); ctx.beginPath(); ctx.moveTo(cx,cy); ctx.lineTo(cx+Math.cos(a)*len,cy+Math.sin(a)*len); ctx.strokeStyle='#2563eb'; ctx.lineWidth=3; ctx.stroke();}
+        ctx.fillStyle='#334155'; ctx.fillText(`風速 ${wind.toFixed(1)} m/s｜ACH ${ACH.toFixed(1)}`, 18, 20);
       });
     }
 
     function chartComfort(comfort,temp,hum){
-      const c=document.getElementById('c4').getContext('2d');
-      draw(c,(ctx,w,h)=>{
-        ctx.strokeStyle='#e2e8f0'; ctx.beginPath();ctx.moveTo(30,h-26);ctx.lineTo(w-10,h-26);ctx.stroke();
+      const c = document.getElementById('c4').getContext('2d');
+      draw(c, (ctx,w,h) => {
+        ctx.strokeStyle='#e2e8f0'; ctx.beginPath(); ctx.moveTo(30,h-26); ctx.lineTo(w-10,h-26); ctx.stroke();
         const pts=[]; for(let i=0;i<12;i++){const x=30+i*(w-45)/11; const y=h-35-(comfort + Math.sin(i/2)*8 - i*1.5)/100*(h-70); pts.push([x,y]);}
-        line(ctx,pts,'#0f766e'); ctx.fillStyle='#334155'; ctx.fillText(`舒適度 ${Math.round(comfort)}｜T${temp}°C RH${hum}%`,20,20);
+        line(ctx, pts, '#0f766e');
+        ctx.fillStyle='#334155'; ctx.fillText(`舒適度 ${Math.round(comfort)}｜T${temp}°C RH${hum}%`, 20, 20);
       });
     }
 
     function update(){
-      ids.forEach(id=>setText(`v-${id}`,document.getElementById(id).value));
-      const r=calc();
-      setText('r-cs',r.Cs.toFixed(3));
-      setText('r-v',`${Math.round(r.V).toLocaleString()} kN`);
-      setText('r-day',`${Math.round(r.daylight)}%`);
-      setText('r-ach',`${r.ACH.toFixed(1)} ACH`);
-      setText('r-comfort',`${Math.round(r.comfort)}`);
-      const rg=document.getElementById('r-grade'); rg.textContent=r.g; rg.className=gradeClass(r.g);
+      ids.forEach(id => setText(`v-${id}`, document.getElementById(id).value));
+      const r = calc();
+      setText('r-cs', r.Cs.toFixed(3));
+      setText('r-v', `${Math.round(r.V).toLocaleString()} kN`);
+      setText('r-day', `${Math.round(r.daylight)}%`);
+      setText('r-ach', `${r.ACH.toFixed(1)} ACH`);
+      setText('r-comfort', `${Math.round(r.comfort)}`);
+      const rg = document.getElementById('r-grade'); rg.textContent=r.g; rg.className=gradeClass(r.g);
 
-      chartSeismic(r.Cs); chartDay(r.daylight/100); chartWind(r.p.wind,r.ACH); chartComfort(r.comfort,r.p.temp,r.p.hum);
-      window.currentResult=r;
+      chartSeismic(r.Cs); chartDay(r.daylight/100); chartWind(r.p.wind, r.ACH); chartComfort(r.comfort, r.p.temp, r.p.hum);
+      window.currentResult = r;
     }
 
-    document.getElementById('saveA').onclick=()=>{scenarioA={...window.currentResult};updateCompare();alert('已儲存為方案 A');};
-    document.getElementById('saveB').onclick=()=>{scenarioB={...window.currentResult};updateCompare();alert('已儲存為方案 B');};
-    document.getElementById('exportTxt').onclick=()=>{
-      const r=window.currentResult;
-      const txt=`【龍科國小概念評估摘要】\nCs=${r.Cs.toFixed(3)}\nV=${Math.round(r.V)} kN\nDaylight=${Math.round(r.daylight)}%\nACH=${r.ACH.toFixed(1)}\nComfort=${Math.round(r.comfort)}\nGrade=${r.g}`;
+    document.getElementById('saveA').addEventListener('click', ()=>{scenarioA={...window.currentResult}; updateCompare(); alert('已儲存為方案 A');});
+    document.getElementById('saveB').addEventListener('click', ()=>{scenarioB={...window.currentResult}; updateCompare(); alert('已儲存為方案 B');});
+    document.getElementById('exportTxt').addEventListener('click', ()=>{
+      const r = window.currentResult;
+      const txt = `【龍科國小評估摘要】\nCs=${r.Cs.toFixed(3)}\nV=${Math.round(r.V)} kN\nDaylight=${Math.round(r.daylight)}%\nACH=${r.ACH.toFixed(1)}\nComfort=${Math.round(r.comfort)}\nGrade=${r.g}`;
       navigator.clipboard?.writeText(txt).then(()=>alert('摘要已複製到剪貼簿')).catch(()=>alert(txt));
-    };
+    });
 
-    update();
+    // to top
+    const toTop = document.getElementById('toTop');
+    window.addEventListener('scroll', ()=>{
+      if (window.scrollY > 600) toTop.classList.add('show'); else toTop.classList.remove('show');
+    });
+    toTop.addEventListener('click', ()=>window.scrollTo({top:0, behavior:'smooth'}));
+
     updateCompare();
+    update();
   </script>
 </body>
 </html>
